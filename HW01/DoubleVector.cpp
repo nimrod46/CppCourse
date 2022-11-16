@@ -21,7 +21,7 @@ void DoubleVector::destroy() {
 
 DoubleVector &DoubleVector::add(double value) {
     if (size == capacity) {
-        capacity *= 2;
+        capacity = capacity == 0 ? 1 : capacity * 2;
         double *new_values = new double[capacity];
         for (int i = 0; i < size; ++i) {
             new_values[i] = values[i];

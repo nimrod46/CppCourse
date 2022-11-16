@@ -22,7 +22,7 @@ void ObservationVector::destroy() {
 
 ObservationVector &ObservationVector::add(Observation& value) {
     if (size == capacity) {
-        capacity *= 2;
+        capacity = capacity == 0 ? 1 : capacity * 2;
         Observation *new_values = new Observation[capacity];
         for (int i = 0; i < size; ++i) {
             new_values[i] = observations[i];
@@ -30,7 +30,7 @@ ObservationVector &ObservationVector::add(Observation& value) {
 //        for (int i = size; i < capacity; ++i) {
 //            new_values[i] = 0;
 //        }
-        delete observations;
+        delete[] observations;
         observations = new_values;
     }
     observations[size++] = &value;

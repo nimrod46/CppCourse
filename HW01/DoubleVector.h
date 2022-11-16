@@ -11,7 +11,7 @@ private:
     int capacity;
     double *values;
 public:
-    explicit DoubleVector(int capacity);
+    explicit DoubleVector(int size);
 
     void destroy();
 

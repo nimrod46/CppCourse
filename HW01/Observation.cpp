@@ -1,6 +1,4 @@
 //
-// Created by nimrod on 16-Nov-22.
-//
 
 
 #include "Observation.h"
@@ -8,6 +6,16 @@
 
 Observation::Observation() {
 
+}
+
+Observation::Observation(Observation *observation) {
+    this->name = observation->name;
+    this->data = observation->data;
+}
+
+Observation::Observation(std::string &name, DoubleVector &data) {
+    this->name = name;
+    this->data = &data;
 }
 
 Observation::Observation(std::string &name, int dataSize) {
@@ -27,7 +35,3 @@ void Observation::setDataAt(int index, double value) {
     data->set(index, value);
 }
 
-Observation::Observation(Observation *observation) {
-    this->name = observation->name;
-    this->data = observation->data;
-}

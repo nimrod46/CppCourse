@@ -16,6 +16,7 @@ private:
     DoubleVector* data;
 public:
     Observation();
+    Observation(std::string& name, DoubleVector& data);
     Observation(std::string& name, int dataSize);
     std::string getName();
     double getDataAt(int index);
