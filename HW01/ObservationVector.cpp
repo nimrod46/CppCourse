@@ -20,7 +20,7 @@ void ObservationVector::destroy() {
     delete observations;
 }
 
-ObservationVector &ObservationVector::add(Observation& value) {
+ObservationVector &ObservationVector::add(Observation &value) {
     if (size == capacity) {
         capacity = capacity == 0 ? 1 : capacity * 2;
         Observation *new_values = new Observation[capacity];
@@ -33,12 +33,12 @@ ObservationVector &ObservationVector::add(Observation& value) {
         delete[] observations;
         observations = new_values;
     }
-    observations[size++] = &value;
+    observations[size++] = value;
     return *this;
 }
 
 ObservationVector &ObservationVector::set(int index, Observation &observation) {
-    observations[index] = &observation;
+    observations[index] = observation;
     return *this;
 }
 
@@ -46,31 +46,14 @@ Observation ObservationVector::get(int index) const {
     return observations[index];
 }
 
-Observation ObservationVector::remove(int index) {
+void ObservationVector::remove(int index) {
+    //delete &observations[index];
     for (int i = index; i < size - 1; ++i) {
-        observations[i] = &observations[i + 1];
+        observations[i] = observations[i + 1];
     }
     size--;
-    return 0;
 }
 
 int ObservationVector::getSize() const {
     return size;
-}
-
-void ObservationVector::print() {
-//    for (int i = 0; i < size; ++i) {
-//        std::cout << get(i) << " ";
-//    }
-//    std::cout << std::endl;
-}
-
-std::string ObservationVector::toString() {
-    std::stringstream ss;
-//    ss << "[";
-//    for (int i = 0; i < size; ++i) {
-//        ss << " " << get(i);
-//    }
-//    ss << "]";
-    return ss.str();
 }

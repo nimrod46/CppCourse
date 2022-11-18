@@ -23,14 +23,9 @@ public:
 
     Observation get(int index) const;
 
-    Observation remove(int index);
+    void remove(int index);
 
     int getSize() const;
-
-    void print();
-
-    std::string toString();
-
 };
 
 #endif //CPPCOURSE_OBSERVATIONVECTOR_H

@@ -22,7 +22,6 @@ public:
     double getDataAt(int index);
     void setDataAt(int index, double value);
     std::string toString();
-
     Observation(Observation *pObservation);
 };
 

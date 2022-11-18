@@ -65,6 +65,18 @@ void addNewObservation(int dim, int maxCount, ObservationVector &obs) {
     std::string name;
     std::cin.ignore();
     std::getline(std::cin, name);
+    int obIndex = -1;
+    for (int i = 0; i < obs.getSize(); ++i) {
+        if (obs.get(i).getName() == name) {
+            //obs.remove(i);
+            obIndex = i;
+        }
+    }
+
+    if(obIndex == -1 && obs.getSize() == maxCount) {
+        std::cout << "Max obs count reached!";
+        return;
+    }
 
     std::cout << "Enter observation values:";
     std::string values;
@@ -84,10 +96,8 @@ void addNewObservation(int dim, int maxCount, ObservationVector &obs) {
         return;
     }
     Observation ob(name, doubleVector);
-    for (int i = 0; i < obs.getSize(); ++i) {
-        if (obs.get(i).getName() == name) {
-            obs.remove(i);
-        }
+    if (obIndex != -1) {
+       obs.remove(obIndex);
     }
     obs.add(ob);
 }
@@ -122,9 +132,32 @@ void printCovarianceMatrix(int dim, ObservationVector &obs) {
         std::cout << "Empty calculator" << std::endl;
         return;
     }
-    DoubleVector *doubleVector = getExpectedValueVector(dim, obs);
+    double cob[dim][dim];
+    for (int i = 0; i < dim; i++) {
+        for (int j = 0; j < dim; j++) {
+            cob[i][j] = 0;
+        }
+    }
+    DoubleVector *expectedValueVector = getExpectedValueVector(dim, obs);
+    double norm = obs.getSize() == 1 ? 1 : (1.0 / (obs.getSize() - 1));
+    for (int i = 0; i < dim; ++i) {
+        for (int j = 0; j < dim; ++j) {
+            for (int k = 0; k < obs.getSize(); ++k) {
+                double v = norm * (obs.get(k).getDataAt(i) - expectedValueVector->get(i)) *
+                           (obs.get(k).getDataAt(j) - expectedValueVector->get(j));
 
+                cob[i][j] += v;
+            }
+        }
+    }
 
+    for (int i = 0; i < dim; ++i) {
+        for (int j = 0; j < dim; ++j) {
+            std::cout << cob[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+    delete expectedValueVector;
 }
 
 DoubleVector *getExpectedValueVector(int dim, ObservationVector &obs) {
