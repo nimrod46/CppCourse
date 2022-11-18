@@ -1,3 +1,0 @@
-/cygdrive/c/Users/nimrod/Documents/GitHub/CppCourse/cmake-build-debug/CMakeFiles/CppCourse.dir
-/cygdrive/c/Users/nimrod/Documents/GitHub/CppCourse/cmake-build-debug/CMakeFiles/edit_cache.dir
-/cygdrive/c/Users/nimrod/Documents/GitHub/CppCourse/cmake-build-debug/CMakeFiles/rebuild_cache.dir
