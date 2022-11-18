@@ -12,6 +12,7 @@ private:
     double *values;
 public:
     explicit DoubleVector(int size);
+    DoubleVector(DoubleVector& doubleVector);
 
     void destroy();
 

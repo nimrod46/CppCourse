@@ -13,9 +13,9 @@ Observation::Observation(Observation *observation) {
     this->data = observation->data;
 }
 
-Observation::Observation(std::string &name, DoubleVector &data) {
+Observation::Observation(std::string &name, DoubleVector& data) {
     this->name = name;
-    this->data = &data;
+    this->data = new DoubleVector(data);
 }
 
 Observation::Observation(std::string &name, int dataSize) {
@@ -34,4 +34,10 @@ double Observation::getDataAt(int index) {
 void Observation::setDataAt(int index, double value) {
     data->set(index, value);
 }
+
+std::string Observation::toString() {
+    return data->toString();
+}
+
+
 

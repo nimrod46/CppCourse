@@ -15,6 +15,16 @@ DoubleVector::DoubleVector(int size) {
     }
 }
 
+DoubleVector::DoubleVector(DoubleVector& doubleVector) {
+    this->size = doubleVector.size;
+    capacity = doubleVector.size;
+    values = new double[size];
+    for (int i = 0; i < size; ++i) {
+        values[i] = doubleVector.get(i);
+    }
+}
+
+
 void DoubleVector::destroy() {
     delete values;
 }
@@ -72,3 +82,4 @@ std::string DoubleVector::toString() {
     ss << "]";
     return ss.str();
 }
+

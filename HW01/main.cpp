@@ -7,23 +7,23 @@
 // Created by nimrod on 16-Nov-22.
 //
 
-void addNewObservation(int i, int i1, ObservationVector vector);
+void addNewObservation(int i, int i1, ObservationVector& obs);
 
-void printObservation();
+void printObservation(ObservationVector& obs);
 
-void printExpectedValueVector();
+void printExpectedValueVector(ObservationVector& obs);
 
-void printCovarianceMatrix();
+void printCovarianceMatrix(ObservationVector& obs);
 
 void start(int argc, char *argv[]) {
     if (argc != 3) {
         std::cout << "Invalid arguments <int> <int>." << std::endl;
-        // return;
+         return;
     }
     int dim;
     dim = std::stoi(argv[1]);
     int maxCount;
-    maxCount = std::stoi(argv[1]);
+    maxCount = std::stoi(argv[2]);
 
 
     ObservationVector obs(0);
@@ -41,13 +41,13 @@ void start(int argc, char *argv[]) {
                 addNewObservation(dim, maxCount, obs);
                 break;
             case 2:
-                printObservation();
+                printObservation(obs);
                 break;
             case 3:
-                printExpectedValueVector();
+                printExpectedValueVector(obs);
                 break;
             case 4:
-                printCovarianceMatrix();
+                printCovarianceMatrix(obs);
                 break;
             case 5:
                 //TODO: Free resources
@@ -58,26 +58,40 @@ void start(int argc, char *argv[]) {
 
 }
 
-void printCovarianceMatrix() {
+void printExpectedValueVector(ObservationVector& obs) {
 
 }
 
-void printExpectedValueVector() {
+void printCovarianceMatrix(ObservationVector& obs) {
 
 }
 
-void printObservation() {
-
-}
-
-void addNewObservation(int dim, int maxCount, ObservationVector obs) {
+void printObservation(ObservationVector& obs) {
     std::cout << "Enter observation name:";
     std::string name;
-    std::cin >> name;
+    std::cin.ignore();
+    std::getline(std::cin, name);
+
+    for (int i = 0; i < obs.getSize(); ++i) {
+        if(obs.get(i).getName() == name) {
+            std::cout << name << " == " << obs.get(i).toString();
+            return;
+        }
+    }
+    std::cout << "Empty calculator" << std::endl;
+}
+
+void addNewObservation(int dim, int maxCount, ObservationVector& obs) {
+    std::cout << "Enter observation name:";
+    std::string name;
+    std::cin.ignore();
+    std::getline(std::cin, name);
 
     std::cout << "Enter observation values:";
     std::string values;
-    std::cin >> values;
+   // std::cin.ignore();
+    std::getline(std::cin, values);
+
     std::stringstream ss(values);
     std::string value;
     int count = 0;
@@ -91,11 +105,17 @@ void addNewObservation(int dim, int maxCount, ObservationVector obs) {
         return;
     }
     Observation ob(name, doubleVector);
+    for (int i = 0; i < obs.getSize(); ++i) {
+        if(obs.get(i).getName() == name) {
+            obs.remove(i);
+        }
+    }
     obs.add(ob);
 }
 
 int main(int argc, char *argv[]) {
     start(argc, argv);
+
 
 
 }
