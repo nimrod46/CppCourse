@@ -15,6 +15,8 @@ void printExpectedValueVector(int dim, ObservationVector &obs);
 
 void printCovarianceMatrix(int dim, ObservationVector &obs);
 
+DoubleVector *getExpectedValueVector(int dim, ObservationVector &obs);
+
 void start(int argc, char *argv[]) {
     if (argc != 3) {
         std::cout << "Invalid arguments <int> <int>." << std::endl;
@@ -106,20 +108,35 @@ void printObservation(ObservationVector &obs) {
 }
 
 void printExpectedValueVector(int dim, ObservationVector &obs) {
-    DoubleVector doubleVector(dim);
+    if (obs.getSize() == 0) {
+        std::cout << "Empty calculator" << std::endl;
+        return;
+    }
+    DoubleVector *doubleVector = getExpectedValueVector(dim, obs);
+    std::cout << "mean == " << doubleVector->toString();
+    delete doubleVector;
+}
+
+void printCovarianceMatrix(int dim, ObservationVector &obs) {
+    if (obs.getSize() == 0) {
+        std::cout << "Empty calculator" << std::endl;
+        return;
+    }
+    DoubleVector *doubleVector = getExpectedValueVector(dim, obs);
+
+
+}
+
+DoubleVector *getExpectedValueVector(int dim, ObservationVector &obs) {
+    DoubleVector *doubleVector = new DoubleVector(dim);
     for (int i = 0; i < dim; ++i) {
         double value = 0;
         for (int j = 0; j < obs.getSize(); ++j) {
             value += obs.get(j).getDataAt(i);
         }
-        doubleVector.set(i, value / obs.getSize());
+        doubleVector->set(i, value / obs.getSize());
     }
-
-    std::cout << "mean == " << doubleVector.toString();
-}
-
-void printCovarianceMatrix(int dim, ObservationVector &obs) {
-
+    return doubleVector;
 }
 
 int main(int argc, char *argv[]) {
