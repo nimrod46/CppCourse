@@ -58,35 +58,6 @@ void start(int argc, char *argv[]) {
 
 }
 
-void printExpectedValueVector(int dim, ObservationVector &obs) {
-
-}
-
-void printCovarianceMatrix(int dim, ObservationVector &obs) {
-    DoubleVector doubleVector(dim);
-    for (int i = 0; i < obs.getSize(); ++i) {
-        for (int j = 0; j < dim; ++i) {
-
-        }
-    }
-
-}
-
-void printObservation(ObservationVector &obs) {
-    std::cout << "Enter observation name:";
-    std::string name;
-    std::cin.ignore();
-    std::getline(std::cin, name);
-
-    for (int i = 0; i < obs.getSize(); ++i) {
-        if (obs.get(i).getName() == name) {
-            std::cout << name << " == " << obs.get(i).toString();
-            return;
-        }
-    }
-    std::cout << "Empty calculator" << std::endl;
-}
-
 void addNewObservation(int dim, int maxCount, ObservationVector &obs) {
     std::cout << "Enter observation name:";
     std::string name;
@@ -119,10 +90,40 @@ void addNewObservation(int dim, int maxCount, ObservationVector &obs) {
     obs.add(ob);
 }
 
+void printObservation(ObservationVector &obs) {
+    std::cout << "Enter observation name:";
+    std::string name;
+    std::cin.ignore();
+    std::getline(std::cin, name);
+
+    for (int i = 0; i < obs.getSize(); ++i) {
+        if (obs.get(i).getName() == name) {
+            std::cout << name << " == " << obs.get(i).toString();
+            return;
+        }
+    }
+    std::cout << "Empty calculator" << std::endl;
+}
+
+void printExpectedValueVector(int dim, ObservationVector &obs) {
+    DoubleVector doubleVector(dim);
+    for (int i = 0; i < dim; ++i) {
+        double value = 0;
+        for (int j = 0; j < obs.getSize(); ++j) {
+            value += obs.get(j).getDataAt(i);
+        }
+        doubleVector.set(i, value / obs.getSize());
+    }
+
+    std::cout << "mean == " << doubleVector.toString();
+}
+
+void printCovarianceMatrix(int dim, ObservationVector &obs) {
+
+}
+
 int main(int argc, char *argv[]) {
     start(argc, argv);
-
-
 }
 
 
