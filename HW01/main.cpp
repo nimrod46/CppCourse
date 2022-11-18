@@ -7,7 +7,7 @@
 // Created by nimrod on 16-Nov-22.
 //
 
-void addNewObservation(int i, int i1, ObservationVector &obs);
+void addNewObservation(int dim, int maxCount, ObservationVector &obs);
 
 void printObservation(ObservationVector &obs);
 
@@ -54,6 +54,8 @@ void start(int argc, char *argv[]) {
             case 5:
                 //TODO: Free resources
                 return;
+            default:
+                break;
         }
         std::cin >> option;
     }
