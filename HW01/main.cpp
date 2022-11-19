@@ -26,19 +26,29 @@ void start(int argc, char *argv[]) {
     dim = std::stoi(argv[1]);
     int maxCount;
     maxCount = std::stoi(argv[2]);
+   // dim = 9;
 
 
+    //std::cerr << "DIM: " << dim << std::endl;
     ObservationVector obs(0);
 
-    std::cout << "[1] New observations" << std::endl;
-    std::cout << "[2] Print observations" << std::endl;
+    std::cout << "[1] New observation" << std::endl;
+    std::cout << "[2] Print observation" << std::endl;
     std::cout << "[3] Expected value vector" << std::endl;
     std::cout << "[4] Covariance matrix" << std::endl;
     std::cout << "[5] Exit" << std::endl;
-    int option;
-    std::cin >> option;
+    std::string option;
     while (true) {
-        switch (option) {
+        std::cin >> option;
+        int num;
+        try{
+            num = std::stoi(option);
+        }
+        catch(std::exception& e){
+//            std::cout << "error converting" << '\n';
+            continue;
+        }
+        switch (num) {
             case 1:
                 addNewObservation(dim, maxCount, obs);
                 break;
@@ -55,15 +65,15 @@ void start(int argc, char *argv[]) {
                 //TODO: Free resources
                 return;
             default:
+                std::cerr << "Invalid option." << std::endl;
                 break;
         }
-        std::cin >> option;
     }
 
 }
 
 void addNewObservation(int dim, int maxCount, ObservationVector &obs) {
-    std::cout << "Enter observation name:";
+    std::cout << "Enter observation name:" << std::endl;
     std::string name;
     std::cin.ignore();
     std::getline(std::cin, name);
@@ -76,11 +86,11 @@ void addNewObservation(int dim, int maxCount, ObservationVector &obs) {
     }
 
     if(obIndex == -1 && obs.getSize() == maxCount) {
-        std::cout << "Max obs count reached!";
+        std::cerr << "Max obs count reached!";
         return;
     }
 
-    std::cout << "Enter observation values:";
+    std::cout << "Enter observation values:" << std::endl;
     std::string values;
     // std::cin.ignore();
     std::getline(std::cin, values);
@@ -94,7 +104,7 @@ void addNewObservation(int dim, int maxCount, ObservationVector &obs) {
         doubleVector.add(std::stod(value));
     }
     if (count != dim) {
-        std::cout << "Invalid observation." << std::endl;
+        std::cerr << "Invalid observation." << std::endl;
         return;
     }
     Observation ob(name, doubleVector);
@@ -105,57 +115,58 @@ void addNewObservation(int dim, int maxCount, ObservationVector &obs) {
 }
 
 void printObservation(ObservationVector &obs) {
-    std::cout << "Enter observation name:";
+    std::cout << "Enter observation name:" << std::endl;
     std::string name;
     std::cin.ignore();
     std::getline(std::cin, name);
 
     for (int i = 0; i < obs.getSize(); ++i) {
         if (obs.get(i).getName() == name) {
-            std::cout << name << " == " << obs.get(i).toString();
+            std::cout << name << " = " << obs.get(i).toString() << std::endl;
             return;
         }
     }
-    std::cout << "Empty calculator" << std::endl;
+    std::cerr << "Invalid or nonexistent observation." << std::endl;
 }
 
 void printExpectedValueVector(int dim, ObservationVector &obs) {
     if (obs.getSize() == 0) {
-        std::cout << "Empty calculator" << std::endl;
+        std::cerr << "Empty calculator" << std::endl;
         return;
     }
     DoubleVector *doubleVector = getExpectedValueVector(dim, obs);
-    std::cout << "mean == " << doubleVector->toString();
+    std::cout << "mean = " << doubleVector->toString() << std::endl;
     delete doubleVector;
 }
 
 void printCovarianceMatrix(int dim, ObservationVector &obs) {
     if (obs.getSize() == 0) {
-        std::cout << "Empty calculator" << std::endl;
+        std::cerr << "Empty calculator" << std::endl;
         return;
     }
-    double cob[dim][dim];
+    float cob[dim][dim];
     for (int i = 0; i < dim; i++) {
         for (int j = 0; j < dim; j++) {
             cob[i][j] = 0;
         }
     }
     DoubleVector *expectedValueVector = getExpectedValueVector(dim, obs);
-    double norm = obs.getSize() == 1 ? 1 : (1.0 / (obs.getSize() - 1));
+    float norm = obs.getSize() == 1 ? 1 : (1.0f / (obs.getSize() - 1.0f));
     for (int i = 0; i < dim; ++i) {
         for (int j = 0; j < dim; ++j) {
             for (int k = 0; k < obs.getSize(); ++k) {
-                double v = norm * (obs.get(k).getDataAt(i) - expectedValueVector->get(i)) *
-                           (obs.get(k).getDataAt(j) - expectedValueVector->get(j));
+                float v = norm * ((float) obs.get(k).getDataAt(i) - (float)expectedValueVector->get(i)) *
+                           ((float)obs.get(k).getDataAt(j) - (float)expectedValueVector->get(j));
 
                 cob[i][j] += v;
             }
         }
     }
 
+    std::cout << "cov = [" << std::endl;
     for (int i = 0; i < dim; ++i) {
         for (int j = 0; j < dim; ++j) {
-            std::cout << cob[i][j] << " ";
+            std::cout << " " << cob[i][j];
         }
         std::cout << std::endl;
     }
