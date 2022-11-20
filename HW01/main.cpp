@@ -37,15 +37,17 @@ void start(int argc, char *argv[]) {
     std::cout << "[3] Expected value vector" << std::endl;
     std::cout << "[4] Covariance matrix" << std::endl;
     std::cout << "[5] Exit" << std::endl;
+    //freopen("input.txt","r",stdin);
+
     std::string option;
     while (true) {
-        std::cin >> option;
+        std::getline(std::cin, option);
         int num;
         try{
             num = std::stoi(option);
         }
         catch(std::exception& e){
-//            std::cout << "error converting" << '\n';
+            std::cerr << "error invalid char: " << option <<  '\n';
             continue;
         }
         switch (num) {
@@ -75,7 +77,7 @@ void start(int argc, char *argv[]) {
 void addNewObservation(int dim, int maxCount, ObservationVector &obs) {
     std::cout << "Enter observation name:" << std::endl;
     std::string name;
-    std::cin.ignore();
+    //std::cin.ignore();
     std::getline(std::cin, name);
     int obIndex = -1;
     for (int i = 0; i < obs.getSize(); ++i) {
@@ -117,7 +119,7 @@ void addNewObservation(int dim, int maxCount, ObservationVector &obs) {
 void printObservation(ObservationVector &obs) {
     std::cout << "Enter observation name:" << std::endl;
     std::string name;
-    std::cin.ignore();
+    //std::cin.ignore();
     std::getline(std::cin, name);
 
     for (int i = 0; i < obs.getSize(); ++i) {
@@ -131,7 +133,7 @@ void printObservation(ObservationVector &obs) {
 
 void printExpectedValueVector(int dim, ObservationVector &obs) {
     if (obs.getSize() == 0) {
-        std::cerr << "Empty calculator" << std::endl;
+        std::cerr << "Empty calculator." << std::endl;
         return;
     }
     DoubleVector *doubleVector = getExpectedValueVector(dim, obs);
@@ -141,22 +143,22 @@ void printExpectedValueVector(int dim, ObservationVector &obs) {
 
 void printCovarianceMatrix(int dim, ObservationVector &obs) {
     if (obs.getSize() == 0) {
-        std::cerr << "Empty calculator" << std::endl;
+        std::cerr << "Empty calculator." << std::endl;
         return;
     }
-    float cob[dim][dim];
+    double cob[dim][dim];
     for (int i = 0; i < dim; i++) {
         for (int j = 0; j < dim; j++) {
             cob[i][j] = 0;
         }
     }
     DoubleVector *expectedValueVector = getExpectedValueVector(dim, obs);
-    float norm = obs.getSize() == 1 ? 1 : (1.0f / (obs.getSize() - 1.0f));
+    double norm = obs.getSize() == 1 ? 1 : (1.0f / (obs.getSize() - 1.0f));
     for (int i = 0; i < dim; ++i) {
         for (int j = 0; j < dim; ++j) {
             for (int k = 0; k < obs.getSize(); ++k) {
-                float v = norm * ((float) obs.get(k).getDataAt(i) - (float)expectedValueVector->get(i)) *
-                           ((float)obs.get(k).getDataAt(j) - (float)expectedValueVector->get(j));
+                double v = norm * (obs.get(k).getDataAt(i) - expectedValueVector->get(i)) *
+                           (obs.get(k).getDataAt(j) - expectedValueVector->get(j));
 
                 cob[i][j] += v;
             }
@@ -166,7 +168,7 @@ void printCovarianceMatrix(int dim, ObservationVector &obs) {
     std::cout << "cov = [" << std::endl;
     for (int i = 0; i < dim; ++i) {
         for (int j = 0; j < dim; ++j) {
-            std::cout << " " << cob[i][j];
+            std::cout << " " << (float) cob[i][j];
         }
         std::cout << std::endl;
     }
@@ -174,7 +176,7 @@ void printCovarianceMatrix(int dim, ObservationVector &obs) {
 }
 
 DoubleVector *getExpectedValueVector(int dim, ObservationVector &obs) {
-    DoubleVector *doubleVector = new DoubleVector(dim);
+    auto *doubleVector = new DoubleVector(dim);
     for (int i = 0; i < dim; ++i) {
         double value = 0;
         for (int j = 0; j < obs.getSize(); ++j) {
