@@ -23,7 +23,7 @@ SquareMat::SquareMat(const SquareMat &other) {
     data = new int *[ndim];
     for (int i = 0; i < ndim; ++i) {
         data[i] = new int[ndim];
-d        for (int j = 0; j < ndim; ++j) {
+        for (int j = 0; j < ndim; ++j) {
             data[i][j] = other.data[i][j];
         }
     }
