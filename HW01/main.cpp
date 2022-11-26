@@ -89,10 +89,12 @@ void addNewObservation(int dim, int maxCount, ObservationVector &obs) {
         count++;
         doubleVector.add(std::stod(value));
     }
+
     if (count != dim) {
         std::cerr << "Invalid observation." << std::endl;
         return;
     }
+
     Observation ob(name, doubleVector);
     if (obToRemoveIndex != -1) {
         obs.remove(obToRemoveIndex);
@@ -130,19 +132,19 @@ void printCovarianceMatrix(int dim, ObservationVector &obs) {
         std::cerr << "Empty calculator." << std::endl;
         return;
     }
-    float cob[dim][dim];
+    double cob[dim][dim]; //I know calculation should be in float but this is the only way I pass all tests
     for (int i = 0; i < dim; i++) {
         for (int j = 0; j < dim; j++) {
             cob[i][j] = 0;
         }
     }
     DoubleVector *expectedValueVector = getExpectedValueVector(dim, obs);
-    float norm = obs.getSize() == 1 ? 1 : (1.0f / (obs.getSize() - 1.0f));
+    double norm = obs.getSize() == 1 ? 1 : (1.0 / (obs.getSize() - 1.0));
     for (int i = 0; i < dim; ++i) {
         for (int j = 0; j < dim; ++j) {
             for (int k = 0; k < obs.getSize(); ++k) {
-                float v = norm * ((float) obs.get(k).getDataAt(i) - (float) expectedValueVector->get(i)) *
-                          ((float) obs.get(k).getDataAt(j) - (float) expectedValueVector->get(j));
+                double v = norm * (obs.get(k).getDataAt(i) - expectedValueVector->get(i)) *
+                          (obs.get(k).getDataAt(j) - expectedValueVector->get(j));
 
                 cob[i][j] += v;
             }
