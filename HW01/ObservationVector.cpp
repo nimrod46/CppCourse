@@ -11,9 +11,6 @@ ObservationVector::ObservationVector(int size) {
     this->size = size;
     capacity = size;
     observations = new Observation[size];
-//    for (int i = 0; i < size; ++i) {
-//        observations[i] = 0;
-//    }
 }
 
 void ObservationVector::destroy() {
@@ -27,9 +24,6 @@ ObservationVector &ObservationVector::add(Observation &value) {
         for (int i = 0; i < size; ++i) {
             new_values[i] = observations[i];
         }
-//        for (int i = size; i < capacity; ++i) {
-//            new_values[i] = 0;
-//        }
         delete[] observations;
         observations = new_values;
     }
@@ -47,7 +41,6 @@ Observation ObservationVector::get(int index) const {
 }
 
 void ObservationVector::remove(int index) {
-    //delete &observations[index];
     for (int i = index; i < size - 1; ++i) {
         observations[i] = observations[i + 1];
     }
