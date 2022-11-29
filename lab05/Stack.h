@@ -51,7 +51,7 @@ public:
 
     void operator>>(Stack &stack);
 
-    friend std::ostream& operator<<(std::ostream& stream, Stack& stack);
+    friend std::ostream &operator<<(std::ostream &stream, Stack &stack);
 
 };
 
