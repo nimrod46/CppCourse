@@ -174,8 +174,8 @@ DoubleVector *getExpectedValueVector(int dim, ObservationVector &obs) {
     return doubleVector;
 }
 
-int main(int argc, char *argv[]) {
-    start(argc, argv);
-}
+//int main(int argc, char *argv[]) {
+//    start(argc, argv);
+//}
 
 
