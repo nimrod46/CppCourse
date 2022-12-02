@@ -11,8 +11,8 @@
 class Board {
 private:
     Cell ***cells;
-    int size{};
-    int emptyCellsCount{};
+    int size;
+    int emptyCellsCount;
     void DestroyCells();
 
 public:
