@@ -84,8 +84,9 @@ void Board::checkNeighborsCells(int x, int y, char potionSymbol, int *playerScor
 
             emptyCellsCount -= originalCell->isEmpty() && !newCell->isEmpty();
 
-            *cells[i][j] = *newCell;
             *playerScoreToAdd += newCell->isPlayerGem(potionSymbol);
+
+            *originalCell = *newCell;
             delete newCell;
         }
     }
