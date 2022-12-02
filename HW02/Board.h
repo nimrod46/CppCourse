@@ -31,7 +31,7 @@ public:
 
     void checkNeighborsCells(int x, int y, char i, int *playerScoreToAdd, int *opponentScoreToRemove);
 
-    Cell* getNeighborsCellsSpecialSymbol(int x, int y, char potionSymbol, char currentCellSymbol);
+    Cell* getCellByNeighbors(int x, int y, char potionSymbol, char currentCellSymbol);
 
     bool isGameOver() const;
 
