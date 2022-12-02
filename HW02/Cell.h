@@ -25,6 +25,8 @@ public:
     static char getOpponentSymbol(char symbol);
 
     static char getGemByPotion(char potionSymbol);
+
+    static char getOpponentGemByPotion(char potionSymbol);
 };
 
 

@@ -32,3 +32,7 @@ char Cell::getOpponentSymbol(char potion_symbol) {
 char Cell::getGemByPotion(char potionSymbol) {
     return potionSymbol == 'R' ? 'r' : 'b';
 }
+
+char Cell::getOpponentGemByPotion(char potionSymbol) {
+    return getGemByPotion(getOpponentSymbol(potionSymbol));
+}

@@ -26,7 +26,7 @@ public:
 
     char getNeighborsCellsSpecialSymbol(int i, int j, char potionSymbol);
 
-    bool isGameOver();
+    bool isGameOver() const;
 };
 
 #endif //CPPCOURSE_BOARD_H

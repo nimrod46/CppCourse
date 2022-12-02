@@ -51,14 +51,13 @@ void Board::checkNeighborsCells(int x, int y, char potionSymbol, int *playerScor
             char symbol = getNeighborsCellsSpecialSymbol(i, j, potionSymbol);
             if (symbol == 'X') {
                 (*playerScoreToAdd) -= Cell::getGemByPotion(potionSymbol) == cells[i][j]->getSymbol();
-                (*opponentScoreToRemove) -= Cell::getGemByPotion(Cell::getOpponentSymbol(potionSymbol)) == cells[i][j]->getSymbol();
+                (*opponentScoreToRemove) -= Cell::getOpponentGemByPotion(potionSymbol) == cells[i][j]->getSymbol();
             }
-            if (cells[i][j]->getSymbol() == 'O' && symbol != 'O') {
-                emptyCellsCount--;
-            }
+
+            emptyCellsCount -= cells[i][j]->getSymbol() == 'O' && symbol != 'O';
+
             cells[i][j]->setSymbol(symbol == 'O' ? cells[i][j]->getSymbol() : symbol);
             *playerScoreToAdd += symbol == Cell::getGemByPotion(potionSymbol);
-
         }
     }
 }
@@ -79,6 +78,6 @@ char Board::getNeighborsCellsSpecialSymbol(int x, int y, char potionSymbol) {
     return found_opponent_potion ? Cell::getGemByPotion(potionSymbol) : 'O';
 }
 
-bool Board::isGameOver() {
+bool Board::isGameOver() const {
     return emptyCellsCount == 0;
 }
