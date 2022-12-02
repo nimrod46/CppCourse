@@ -29,7 +29,7 @@ public:
 
     bool placePlayerAt(int x, int y, char playerSymbol, int *playerScoreToAdd, int *opponentScoreToRemove);
 
-    void checkNeighborsCells(int x, int y, char playerSymbol, int *playerScoreToAdd, int *opponentScoreToRemove);
+    void updateNeighboringCellsByPlayerMove(int x, int y, char playerSymbol, int *playerScoreToAdd, int *opponentScoreToRemove);
 
     Cell* getCellByNeighbors(int x, int y, char playerSymbol, char currentCellSymbol);
 

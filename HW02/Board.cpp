@@ -60,14 +60,14 @@ bool Board::placePlayerAt(int x, int y, char playerSymbol, int *playerScoreToAdd
         return false;
     }
 
-    checkNeighborsCells(x, y, playerSymbol, playerScoreToAdd, opponentScoreToRemove);
+    updateNeighboringCellsByPlayerMove(x, y, playerSymbol, playerScoreToAdd, opponentScoreToRemove);
     cells[x][y]->setSymbol(playerSymbol);
     emptyCellsCount--;
 
     return true;
 }
 
-void Board::checkNeighborsCells(int x, int y, char playerSymbol, int *playerScoreToAdd, int *opponentScoreToRemove) {
+void Board::updateNeighboringCellsByPlayerMove(int x, int y, char playerSymbol, int *playerScoreToAdd, int *opponentScoreToRemove) {
     for (int i = std::max((x - 1), 0); i <= std::min((x + 1), size - 1); ++i) {
         for (int j = std::max((y - 1), 0); j <= std::min((y + 1), size - 1); ++j) {
             if (i == x && j == y) {
