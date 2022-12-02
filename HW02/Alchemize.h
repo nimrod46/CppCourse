@@ -10,9 +10,9 @@
 
 class Alchemize {
 private:
+    Board *board;
     int redScore;
     int blueScore;
-    Board *board;
 
     void printBoard();
 

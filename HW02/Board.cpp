@@ -34,6 +34,7 @@ Board &Board::operator=(const Board &rhs) {
             cells[i][j] = new Cell(*rhs.cells[i][j]);
         }
     }
+    return *this;
 }
 
 Board::~Board() {
@@ -47,6 +48,7 @@ std::ostream &operator<<(std::ostream &stream, Board &board) {
         }
         stream << std::endl;
     }
+    return stream;
 }
 
 bool Board::placePotionAt(int x, int y, char potionSymbol, int *playerScoreToAdd, int *opponentScoreToRemove) {
