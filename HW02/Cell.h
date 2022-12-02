@@ -14,6 +14,8 @@ private:
 public:
     Cell();
 
+    Cell(char symbol);
+
     char getSymbol() const;
 
     bool canPutPotion();
@@ -27,6 +29,16 @@ public:
     static char getGemByPotion(char potionSymbol);
 
     static char getOpponentGemByPotion(char potionSymbol);
+
+    bool isPotion();
+
+    bool isCollapsed();
+
+    bool isPlayerGem(char potionSymbol) const;
+
+    bool isEmpty();
+
+    bool isOpponentGem(char potionSymbol) const;
 };
 
 

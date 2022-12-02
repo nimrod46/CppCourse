@@ -1,12 +1,14 @@
 //
-// Created by nimrod on 02/12/2022.
-//
 
 #include "Cell.h"
 //const char Cell::symbols[6] = {'O', 'X', 'R', 'B', 'r', 'b'};
 
 Cell::Cell() : symbol('O') {
 
+}
+
+Cell::Cell(char symbol) {
+    this->symbol = symbol;
 }
 
 char Cell::getSymbol() const {
@@ -25,6 +27,18 @@ bool Cell::hasOpponentPotion(char potion_symbol) const {
     return getOpponentSymbol(potion_symbol) == symbol;
 }
 
+bool Cell::isPotion() {
+    return symbol == 'R' || symbol == 'B';
+}
+
+bool Cell::isCollapsed() {
+    return symbol == 'X';
+}
+
+bool Cell::isEmpty() {
+    return symbol == 'O';
+}
+
 char Cell::getOpponentSymbol(char potion_symbol) {
     return potion_symbol == 'R' ? 'B' : 'R';
 }
@@ -35,4 +49,12 @@ char Cell::getGemByPotion(char potionSymbol) {
 
 char Cell::getOpponentGemByPotion(char potionSymbol) {
     return getGemByPotion(getOpponentSymbol(potionSymbol));
+}
+
+bool Cell::isPlayerGem(char potionSymbol) const {
+    return getGemByPotion(potionSymbol) == symbol;
+}
+
+bool Cell::isOpponentGem(char potionSymbol) const {
+    return getOpponentGemByPotion(potionSymbol) == symbol;
 }

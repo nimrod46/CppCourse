@@ -41,7 +41,6 @@ void Alchemize::start() {
         return;
     }
     std::cout << "Blue won" << std::endl;
-    return;
 }
 
 bool Alchemize::inputFromClient(char potionSymbol, int *playerScore, int *opponentScore) const {
