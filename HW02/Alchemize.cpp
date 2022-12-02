@@ -12,11 +12,11 @@ Alchemize::Alchemize(int size) : board(new Board(size)), redScore(0), blueScore(
 
 void Alchemize::start() {
     printBoard();
-    char potionSymbol = 'R';
+    char playerSymbol = 'R';
     int *playerScore = &redScore;
     int *opponentScore = &blueScore;
     while (true) {
-        if (!inputFromClient(potionSymbol, playerScore, opponentScore)) {
+        if (!inputFromClient(playerSymbol, playerScore, opponentScore)) {
             std::cerr << "Invalid row/col index or non free cell" << std::endl;
             continue;
         }
@@ -24,7 +24,7 @@ void Alchemize::start() {
         playerScore = opponentScore;
         opponentScore = tmp;
 
-        potionSymbol = Cell::getOpponentSymbol(potionSymbol);
+        playerSymbol = Cell::getOpponentSymbol(playerSymbol);
         printBoard();
 
         if (board->isGameOver()) {
@@ -43,8 +43,8 @@ void Alchemize::start() {
     std::cout << "Blue won" << std::endl;
 }
 
-bool Alchemize::inputFromClient(char potionSymbol, int *playerScore, int *opponentScore) const {
-    std::cout << potionSymbol << ":" << std::endl;
+bool Alchemize::inputFromClient(char playerSymbol, int *playerScore, int *opponentScore) const {
+    std::cout << playerSymbol << ":" << std::endl;
     std::string input;
 
     std::getline(std::cin, input);
@@ -59,7 +59,7 @@ bool Alchemize::inputFromClient(char potionSymbol, int *playerScore, int *oppone
         return false;
     }
     y = std::stoi(n);
-    if (!board->placePotionAt(x - 1, y - 1, potionSymbol, playerScore, opponentScore)) {
+    if (!board->placePlayerAt(x - 1, y - 1, playerSymbol, playerScore, opponentScore)) {
         return false;
     }
     return true;

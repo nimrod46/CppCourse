@@ -18,27 +18,29 @@ public:
 
     char getSymbol() const;
 
-    bool canPutPotion();
+    bool canPutPotion() const;
 
     void setSymbol(char symbol);
 
     bool hasOpponentPotion(char symbol) const;
 
-    static char getOpponentSymbol(char symbol);
+    static char getOpponentSymbol(char playerSymbol);
 
-    static char getGemByPotion(char potionSymbol);
+    static char getGemByPotion(char playerSymbol);
 
-    static char getOpponentGemByPotion(char potionSymbol);
+    static char getOpponentGemByPotion(char playerSymbol);
 
-    bool isPotion();
+    bool isPotion() const;
 
-    bool isCollapsed();
+    bool isCollapsed() const;
 
-    bool isPlayerGem(char potionSymbol) const;
+    bool isPlayerGem(char playerSymbol) const;
 
-    bool isEmpty();
+    bool isEmpty() const;
 
-    bool isOpponentGem(char potionSymbol) const;
+    bool isOpponentGem(char playerSymbol) const;
+
+    bool isPlayer(char playerSymbol) const;
 };
 
 

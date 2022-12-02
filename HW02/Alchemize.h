@@ -16,7 +16,7 @@ private:
 
     void printBoard();
 
-    bool inputFromClient(char potionSymbol, int *playerScore, int *opponentScore) const;
+    bool inputFromClient(char playerSymbol, int *playerScore, int *opponentScore) const;
 
 public:
     Alchemize(int size);

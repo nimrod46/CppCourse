@@ -27,11 +27,11 @@ public:
 
     friend std::ostream &operator<<(std::ostream &stream, Board &board);
 
-    bool placePotionAt(int x, int y, char potionSymbol, int *playerScoreToAdd, int *opponentScoreToRemove);
+    bool placePlayerAt(int x, int y, char playerSymbol, int *playerScoreToAdd, int *opponentScoreToRemove);
 
-    void checkNeighborsCells(int x, int y, char i, int *playerScoreToAdd, int *opponentScoreToRemove);
+    void checkNeighborsCells(int x, int y, char playerSymbol, int *playerScoreToAdd, int *opponentScoreToRemove);
 
-    Cell* getCellByNeighbors(int x, int y, char potionSymbol, char currentCellSymbol);
+    Cell* getCellByNeighbors(int x, int y, char playerSymbol, char currentCellSymbol);
 
     bool isGameOver() const;
 

@@ -15,7 +15,7 @@ char Cell::getSymbol() const {
     return symbol;
 }
 
-bool Cell::canPutPotion() {
+bool Cell::canPutPotion() const {
     return symbol == 'O';
 }
 
@@ -27,34 +27,38 @@ bool Cell::hasOpponentPotion(char potion_symbol) const {
     return getOpponentSymbol(potion_symbol) == symbol;
 }
 
-bool Cell::isPotion() {
+bool Cell::isPotion() const {
     return symbol == 'R' || symbol == 'B';
 }
 
-bool Cell::isCollapsed() {
+bool Cell::isCollapsed() const {
     return symbol == 'X';
 }
 
-bool Cell::isEmpty() {
+bool Cell::isEmpty() const {
     return symbol == 'O';
 }
 
-char Cell::getOpponentSymbol(char potion_symbol) {
-    return potion_symbol == 'R' ? 'B' : 'R';
+char Cell::getOpponentSymbol(char playerSymbol) {
+    return playerSymbol == 'R' ? 'B' : 'R';
 }
 
-char Cell::getGemByPotion(char potionSymbol) {
-    return potionSymbol == 'R' ? 'r' : 'b';
+char Cell::getGemByPotion(char playerSymbol) {
+    return playerSymbol == 'R' ? 'r' : 'b';
 }
 
-char Cell::getOpponentGemByPotion(char potionSymbol) {
-    return getGemByPotion(getOpponentSymbol(potionSymbol));
+char Cell::getOpponentGemByPotion(char playerSymbol) {
+    return getGemByPotion(getOpponentSymbol(playerSymbol));
 }
 
-bool Cell::isPlayerGem(char potionSymbol) const {
-    return getGemByPotion(potionSymbol) == symbol;
+bool Cell::isPlayerGem(char playerSymbol) const {
+    return getGemByPotion(playerSymbol) == symbol;
 }
 
-bool Cell::isOpponentGem(char potionSymbol) const {
-    return getOpponentGemByPotion(potionSymbol) == symbol;
+bool Cell::isOpponentGem(char playerSymbol) const {
+    return getOpponentGemByPotion(playerSymbol) == symbol;
+}
+
+bool Cell::isPlayer(char playerSymbol) const {
+    return symbol == playerSymbol;
 }
