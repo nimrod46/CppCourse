@@ -23,10 +23,6 @@ void Cell::setSymbol(char potion_symbol) {
     symbol = potion_symbol;
 }
 
-bool Cell::hasOpponentPotion(char potion_symbol) const {
-    return getOpponentSymbol(potion_symbol) == symbol;
-}
-
 bool Cell::isPotion() const {
     return symbol == 'R' || symbol == 'B';
 }
@@ -37,22 +33,6 @@ bool Cell::isCollapsed() const {
 
 bool Cell::isEmpty() const {
     return symbol == 'O';
-}
-
-char Cell::getOpponentSymbol(char playerSymbol) {
-    return playerSymbol == 'R' ? 'B' : 'R';
-}
-
-char Cell::getGemByPotion(char playerSymbol) {
-    return playerSymbol == 'R' ? 'r' : 'b';
-}
-
-char Cell::getOpponentGemByPotion(char playerSymbol) {
-    return getGemByPotion(getOpponentSymbol(playerSymbol));
-}
-
-bool Cell::isOpponentGem(char playerSymbol) const {
-    return getOpponentGemByPotion(playerSymbol) == symbol;
 }
 
 bool Cell::isPlayer(Player &player) const {

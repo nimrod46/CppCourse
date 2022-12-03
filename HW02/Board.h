@@ -27,8 +27,6 @@ public:
 
     ~Board();
 
-    friend std::ostream &operator<<(std::ostream &stream, Board &board);
-
     bool placePlayerAt(int x, int y, Player &player, Player &opponent);
 
     void updateNeighboringCellsByPlayerMove(int x, int y, Player &player, Player &opponent);
@@ -36,6 +34,8 @@ public:
     Cell* getCellByNeighbors(int x, int y, Player &player, Player &opponent, Cell &currentCell);
 
     bool isGameOver() const;
+
+    friend std::ostream &operator<<(std::ostream &stream, Board &board);
 
 };
 
