@@ -5,46 +5,44 @@
 #include <iostream>
 #include <sstream>
 #include "Alchemize.h"
+#include "Player.h"
 
-Alchemize::Alchemize(int size) : board(new Board(size)), redScore(0), blueScore(0) {
+Alchemize::Alchemize(int size) : board(new Board(size)) {
 
 }
 
 void Alchemize::start() {
-    printBoard();
-    char playerSymbol = 'R';
-    int *playerScore = &redScore;
-    int *opponentScore = &blueScore;
+    Player *red = new Player('R', 'r');
+    Player *player = red;
+    Player *blue = new Player('B', 'b');
+    Player *opponent = blue;
+    printBoard(*red, *blue);
     while (true) {
-        if (!inputFromClient(playerSymbol, playerScore, opponentScore)) {
+        if (!inputFromClient(*player, *opponent)) {
             std::cerr << "Invalid row/col index or non free cell" << std::endl;
             continue;
         }
-        int *tmp = playerScore;
-        playerScore = opponentScore;
-        opponentScore = tmp;
-
-        playerSymbol = Cell::getOpponentSymbol(playerSymbol);
-        printBoard();
+        std::swap(player, opponent);
+        printBoard(*red, *blue);
 
         if (board->isGameOver()) {
             break;
         }
     }
 
-    if (redScore == blueScore) {
+    if (red->getScore() == blue->getScore()) {
         std::cout << "The game ended with a tie" << std::endl;
         return;
     }
-    if (redScore > blueScore) {
+    if (red->getScore() > blue->getScore()) {
         std::cout << "Red won" << std::endl;
         return;
     }
     std::cout << "Blue won" << std::endl;
 }
 
-bool Alchemize::inputFromClient(char playerSymbol, int *playerScore, int *opponentScore) const {
-    std::cout << playerSymbol << ":" << std::endl;
+bool Alchemize::inputFromClient(Player &player, Player &opponent) const {
+    std::cout << player.getPotionSymbol() << ":" << std::endl;
     std::string input;
 
     std::getline(std::cin, input);
@@ -59,14 +57,13 @@ bool Alchemize::inputFromClient(char playerSymbol, int *playerScore, int *oppone
         return false;
     }
     y = std::stoi(n);
-    if (!board->placePlayerAt(x - 1, y - 1, playerSymbol, playerScore, opponentScore)) {
+    if (!board->placePlayerAt(x - 1, y - 1, player, opponent)) {
         return false;
     }
     return true;
 }
 
-void Alchemize::printBoard() {
-    std::cout << "Red count: " << redScore << "\tBlue count: " << blueScore << std::endl;
+void Alchemize::printBoard(Player &redPlayer, Player &bluePlayer) {
+    std::cout << "Red count: " << redPlayer.getScore() << "\tBlue count: " << bluePlayer.getScore() << std::endl;
     std::cout << *board;
-
 }

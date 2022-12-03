@@ -51,14 +51,14 @@ char Cell::getOpponentGemByPotion(char playerSymbol) {
     return getGemByPotion(getOpponentSymbol(playerSymbol));
 }
 
-bool Cell::isPlayerGem(char playerSymbol) const {
-    return getGemByPotion(playerSymbol) == symbol;
-}
-
 bool Cell::isOpponentGem(char playerSymbol) const {
     return getOpponentGemByPotion(playerSymbol) == symbol;
 }
 
-bool Cell::isPlayer(char playerSymbol) const {
-    return symbol == playerSymbol;
+bool Cell::isPlayer(Player &player) const {
+    return symbol == player.getPotionSymbol();
+}
+
+bool Cell::isPlayerGem(Player &player) const {
+    return player.getGemSymbol() == symbol;
 }

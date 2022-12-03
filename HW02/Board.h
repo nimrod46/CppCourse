@@ -7,12 +7,14 @@
 
 
 #include "Cell.h"
+#include "Player.h"
 
 class Board {
 private:
     Cell ***cells;
     int size;
     int emptyCellsCount;
+
     void DestroyCells();
 
 public:
@@ -27,11 +29,11 @@ public:
 
     friend std::ostream &operator<<(std::ostream &stream, Board &board);
 
-    bool placePlayerAt(int x, int y, char playerSymbol, int *playerScoreToAdd, int *opponentScoreToRemove);
+    bool placePlayerAt(int x, int y, Player &player, Player &opponent);
 
-    void updateNeighboringCellsByPlayerMove(int x, int y, char playerSymbol, int *playerScoreToAdd, int *opponentScoreToRemove);
+    void updateNeighboringCellsByPlayerMove(int x, int y, Player &player, Player &opponent);
 
-    Cell* getCellByNeighbors(int x, int y, char playerSymbol, char currentCellSymbol);
+    Cell* getCellByNeighbors(int x, int y, Player &player, Player &opponent, Cell &currentCell);
 
     bool isGameOver() const;
 

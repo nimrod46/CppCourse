@@ -7,16 +7,15 @@
 
 
 #include "Board.h"
+#include "Player.h"
 
 class Alchemize {
 private:
     Board *board;
-    int redScore;
-    int blueScore;
 
-    void printBoard();
+    bool inputFromClient(Player &player, Player &opponent) const;
 
-    bool inputFromClient(char playerSymbol, int *playerScore, int *opponentScore) const;
+    void printBoard(Player &redPlayer, Player &bluePlayer);
 
 public:
     Alchemize(int size);

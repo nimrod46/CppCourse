@@ -6,6 +6,8 @@
 #define CPPCOURSE_CELL_H
 
 
+#include "Player.h"
+
 class Cell {
 private:
 //    const static char symbols[6]; //= {'O'};
@@ -34,13 +36,13 @@ public:
 
     bool isCollapsed() const;
 
-    bool isPlayerGem(char playerSymbol) const;
+    bool isPlayerGem(Player &player) const;
 
     bool isEmpty() const;
 
     bool isOpponentGem(char playerSymbol) const;
 
-    bool isPlayer(char playerSymbol) const;
+    bool isPlayer(Player &player) const;
 };
 
 

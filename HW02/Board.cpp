@@ -51,7 +51,7 @@ std::ostream &operator<<(std::ostream &stream, Board &board) {
     return stream;
 }
 
-bool Board::placePlayerAt(int x, int y, char playerSymbol, int *playerScoreToAdd, int *opponentScoreToRemove) {
+bool Board::placePlayerAt(int x, int y, Player &player, Player &opponent) {
     if (x >= size || x < 0 || y < 0 || y >= size) {
         return false;
     }
@@ -60,14 +60,14 @@ bool Board::placePlayerAt(int x, int y, char playerSymbol, int *playerScoreToAdd
         return false;
     }
 
-    updateNeighboringCellsByPlayerMove(x, y, playerSymbol, playerScoreToAdd, opponentScoreToRemove);
-    cells[x][y]->setSymbol(playerSymbol);
+    updateNeighboringCellsByPlayerMove(x, y, player, opponent);
+    cells[x][y]->setSymbol(player.getPotionSymbol());
     emptyCellsCount--;
 
     return true;
 }
 
-void Board::updateNeighboringCellsByPlayerMove(int x, int y, char playerSymbol, int *playerScoreToAdd, int *opponentScoreToRemove) {
+void Board::updateNeighboringCellsByPlayerMove(int x, int y, Player &player, Player &opponent) {
     for (int i = std::max((x - 1), 0); i <= std::min((x + 1), size - 1); ++i) {
         for (int j = std::max((y - 1), 0); j <= std::min((y + 1), size - 1); ++j) {
             if (i == x && j == y) {
@@ -79,15 +79,15 @@ void Board::updateNeighboringCellsByPlayerMove(int x, int y, char playerSymbol, 
             }
 
             Cell *originalCell = cells[i][j];
-            Cell *newCell = getCellByNeighbors(i, j, playerSymbol, cells[i][j]->getSymbol());
+            Cell *newCell = getCellByNeighbors(i, j, player, opponent, *cells[i][j]);
             if (newCell->isCollapsed()) {
-                (*playerScoreToAdd) -= originalCell->isPlayerGem(playerSymbol);
-                (*opponentScoreToRemove) -= originalCell->isOpponentGem(playerSymbol);
+                player -= originalCell->isPlayerGem(player);
+                opponent -= originalCell->isPlayerGem(opponent);
             }
 
             emptyCellsCount -= originalCell->isEmpty() && !newCell->isEmpty();
 
-            *playerScoreToAdd += newCell->isPlayerGem(playerSymbol);
+            player += newCell->isPlayerGem(player);
 
             *originalCell = *newCell;
             delete newCell;
@@ -95,7 +95,7 @@ void Board::updateNeighboringCellsByPlayerMove(int x, int y, char playerSymbol, 
     }
 }
 
-Cell *Board::getCellByNeighbors(int x, int y, char playerSymbol, char currentCellSymbol) {
+Cell *Board::getCellByNeighbors(int x, int y, Player &player, Player &opponent, Cell &currentCell) {
     bool foundOpponentPotion = false;
     for (int i = std::max((x - 1), 0); i <= std::min((x + 1), size - 1); ++i) {
         for (int j = std::max((y - 1), 0); j <= std::min((y + 1), size - 1); ++j) {
@@ -103,14 +103,14 @@ Cell *Board::getCellByNeighbors(int x, int y, char playerSymbol, char currentCel
                 continue;
             }
 
-            if (cells[i][j]->isPlayer(playerSymbol)) {
+            if (cells[i][j]->isPlayer(player)) {
                 return new Cell('X');
             }
 
-            foundOpponentPotion = foundOpponentPotion || cells[i][j]->hasOpponentPotion(playerSymbol);
+            foundOpponentPotion = foundOpponentPotion || cells[i][j]->isPlayer(opponent);
         }
     }
-    return foundOpponentPotion ? new Cell(Cell::getGemByPotion(playerSymbol)) : new Cell(currentCellSymbol);
+    return foundOpponentPotion ? new Cell(player.getGemSymbol()) : new Cell(currentCell);
 }
 
 bool Board::isGameOver() const {
