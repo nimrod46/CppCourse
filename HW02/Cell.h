@@ -32,7 +32,7 @@ public:
 
     bool isEmpty() const;
 
-    bool isPlayer(Player &player) const;
+    bool isPlayerPotion(Player &player) const;
 };
 
 

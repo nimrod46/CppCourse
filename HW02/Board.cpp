@@ -103,11 +103,11 @@ Cell *Board::getCellByNeighbors(int x, int y, Player &player, Player &opponent, 
                 continue;
             }
 
-            if (cells[i][j]->isPlayer(player)) {
+            if (cells[i][j]->isPlayerPotion(player)) {
                 return new Cell('X');
             }
 
-            foundOpponentPotion = foundOpponentPotion || cells[i][j]->isPlayer(opponent);
+            foundOpponentPotion = foundOpponentPotion || cells[i][j]->isPlayerPotion(opponent);
         }
     }
     return foundOpponentPotion ? new Cell(player.getGemSymbol()) : new Cell(currentCell);

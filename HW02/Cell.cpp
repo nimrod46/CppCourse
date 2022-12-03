@@ -35,7 +35,7 @@ bool Cell::isEmpty() const {
     return symbol == 'O';
 }
 
-bool Cell::isPlayer(Player &player) const {
+bool Cell::isPlayerPotion(Player &player) const {
     return symbol == player.getPotionSymbol();
 }
 
