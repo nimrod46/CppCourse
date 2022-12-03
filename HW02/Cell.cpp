@@ -1,7 +1,5 @@
-//
 
 #include "Cell.h"
-//const char Cell::symbols[6] = {'O', 'X', 'R', 'B', 'r', 'b'};
 
 Cell::Cell() : symbol('O') {
 
@@ -40,5 +38,5 @@ bool Cell::isPlayerPotion(Player &player) const {
 }
 
 bool Cell::isPlayerGem(Player &player) const {
-    return player.getGemSymbol() == symbol;
+    return symbol == player.getGemSymbol();
 }

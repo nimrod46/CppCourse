@@ -10,8 +10,6 @@
 
 class Cell {
 private:
-//    const static char symbols[6]; //= {'O'};
-//    int symbol_index;
     char symbol;
 public:
     Cell();
