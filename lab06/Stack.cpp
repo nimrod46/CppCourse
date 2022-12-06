@@ -27,7 +27,7 @@ Stack &Stack::operator=(const Stack &rhs) {
     return *this;
 }
 
-Stack::Stack(Stack &&rhs) : list(rhs.list) {
+Stack::Stack(Stack &&rhs) noexcept : list(rhs.list) {
     rhs.list = nullptr;
 }
 
@@ -86,13 +86,13 @@ void Stack::operator>>(int &num) {
 }
 
 void Stack::operator<<(Stack &stack) {
-    for (int i = 0; i <= stack.list->size(); ++i) {
+    for (int i = 0; i < stack.list->size(); ++i) {
         push(stack.list->operator[](i));
     }
 }
 
 void Stack::operator>>(Stack &stack) {
-    for (int i = 0; i < stack.list->size(); ++i) {
+    for (int i = 0; i < list->size(); ++i) {
         stack.push(list->operator[](i));
     }
 }
@@ -102,6 +102,16 @@ std::ostream &operator<<(std::ostream &stream, Stack &stack) {
         stream << stack.list->operator[](i) << " ";
     }
     return stream;
+}
+
+void reverse(Stack &stack) {
+    Stack stack1;
+    Stack stack2;
+    stack >> stack1;
+    ~stack;
+    stack1 >> stack2;
+    stack2 >> stack;
+
 }
 
 

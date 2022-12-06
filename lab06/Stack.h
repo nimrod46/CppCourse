@@ -21,7 +21,7 @@ public:
 
     Stack &operator=(const Stack &rhs);
 
-    Stack(Stack &&dim);
+    Stack(Stack &&dim) noexcept ;
 
     Stack &operator=(Stack &&rhs);
 
@@ -54,6 +54,8 @@ public:
     friend std::ostream &operator<<(std::ostream &stream, Stack &stack);
 
 };
+
+void reverse(Stack & stack);
 
 
 #endif //CPPCOURSE_STACK_H
