@@ -37,6 +37,23 @@ Board &Board::operator=(const Board &rhs) {
     return *this;
 }
 
+Board::Board(Board &&board) noexcept{
+    cells = nullptr;
+    *this = std::move(board);
+}
+
+Board &Board::operator=(Board &&rhs) noexcept{
+    if (this != &rhs) {
+        return *this;
+    }
+    DestroyCells();
+
+    size = rhs.size;
+    cells = rhs.cells;
+    rhs.cells = nullptr;
+}
+
+
 Board::~Board() {
     DestroyCells();
 }
@@ -129,3 +146,4 @@ void Board::DestroyCells() {
     }
     delete[] cells;
 }
+

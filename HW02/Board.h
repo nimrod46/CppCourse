@@ -27,11 +27,15 @@ public:
 
     ~Board();
 
+    Board(Board&& board) noexcept ;
+
+    Board &operator=(Board &&rhs) noexcept ;
+
     bool placePlayerAt(int x, int y, Player &player, Player &opponent);
 
     void updateNeighboringCellsByPlayerMove(int x, int y, Player &player, Player &opponent);
 
-    Cell* getCellByNeighbors(int x, int y, Player &player, Player &opponent, Cell &currentCell);
+    Cell *getCellByNeighbors(int x, int y, Player &player, Player &opponent, Cell &currentCell);
 
     bool isGameOver() const;
 

@@ -11,7 +11,7 @@
 class Cell {
 private:
     char symbol;
-public:
+public://No dynamic allocation, so no need to define any of the three and five rule
     Cell();
 
     explicit Cell(char symbol);

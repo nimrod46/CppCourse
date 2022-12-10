@@ -11,7 +11,7 @@ private:
     int score;
     char potionSymbol;
     char gemSymbol;
-public:
+public: //No dynamic allocation, so no need to define any of the three and five rule
     Player(char potionSymbol, char gemSymbol);
 
     int getScore() const;
