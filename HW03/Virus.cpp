@@ -17,7 +17,7 @@ Virus::Virus(std::string &name, DoubleVector &valuesVector, DoubleVector *target
 }
 
 
-Virus::Virus(int defaultScore){
+Virus::Virus(int defaultScore) {
     name = "";
     this->valuesVector = nullptr;
     this->targetVector = nullptr;
@@ -38,7 +38,7 @@ Virus::Virus(Virus &virus) : name(virus.name) {
 }
 
 int Virus::getScore() const {
-    if(defaultScore != -1) {
+    if (defaultScore != -1) {
         return defaultScore;
     }
     int score = 0;
@@ -58,7 +58,7 @@ std::string Virus::getName() {
 
 std::ostream &operator<<(std::ostream &stream, Virus &virus) {
     stream << virus.name;
-    if(virus.genIndex != 0) {
+    if (virus.genIndex != 0) {
         stream << "_" << virus.genIndex;
     }
     stream << "\t";
@@ -72,8 +72,9 @@ std::ostream &operator<<(std::ostream &stream, Virus &virus) {
 
 void Virus::operator*() const {
     for (int k = 0; k < pM; ++k) {
-        int i = rand() % valuesVector->getSize();
-        int j = rand() % valuesVector->getSize();
+
+        int i = ((double)rand() * (valuesVector->getSize())) / (double)RAND_MAX;
+        int j = ((double)rand() * (valuesVector->getSize())) / (double)RAND_MAX;
         int tmp = valuesVector->get(i);
         valuesVector->set(i, valuesVector->get(j));
         valuesVector->set(j, tmp);
@@ -81,7 +82,7 @@ void Virus::operator*() const {
 }
 
 bool Virus::operator<(const Virus &virus) const {
-    if(getScore() == virus.getScore()) {
+    if (getScore() == virus.getScore()) {
         return genIndex < virus.genIndex;
     }
 
