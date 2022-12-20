@@ -16,7 +16,7 @@ bool inputFromClient(Board &board, Player &player, Player &opponent);
 
 void startGame(int argc, char *argv[]) {
     if (argc != 2) {
-        std::cerr << "Invalid run arguments; run the game with board size." << std::endl;
+        std::cerr << "Invalid run arguments; run the game with board getSize." << std::endl;
         return;
     }
     int size = std::stoi(argv[1]);
@@ -80,7 +80,7 @@ void printBoard(Board &board, Player &redPlayer, Player &bluePlayer) {
 }
 
 
-int main(int argc, char *argv[]) {
-    startGame(argc, argv);
-    return 0;
-}
+//int main(int argc, char *argv[]) {
+//    startGame(argc, argv);
+//    return 0;
+//}

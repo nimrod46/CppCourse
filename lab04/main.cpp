@@ -9,7 +9,7 @@
 //    SquareMat mats[] = {SquareMat(5), SquareMat(8), SquareMat(4), SquareMat(10), SquareMat(9)};
 //    SquareMat* minMat = &mats[0];
 //    for (auto & mat : mats) {
-//        std::cout << mat.size() << std::endl;
+//        std::cout << mat.getSize() << std::endl;
 //        if (mat.compare(*minMat)) {
 //            minMat = &mat;
 //        }

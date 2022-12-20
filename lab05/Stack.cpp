@@ -4,8 +4,8 @@
 //
 //#include "Stack.h"
 //
-//Stack::Stack(int size) {
-//    data = new int[size];
+//Stack::Stack(int getSize) {
+//    data = new int[getSize];
 //    index = -1;
 //}
 //
