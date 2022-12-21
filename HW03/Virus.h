@@ -29,7 +29,7 @@ public:
 
     Virus &operator=(const Virus &virus);
 
-    int getScore() const;
+    double getErrorFromTarget() const;
 
     bool operator==(const Virus &virus) const;
 

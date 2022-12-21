@@ -51,15 +51,15 @@ Virus &Virus::operator=(const Virus &virus) {
     return *this;
 }
 
-int Virus::getScore() const {
+double Virus::getErrorFromTarget() const {
     if (defaultScore != -1) {
         return defaultScore;
     }
-    int score = 0;
+    double score = 0;
     for (int i = 0; i < valuesVector->getSize(); ++i) {
-        score += valuesVector->get(i) != targetVector->get(i);
+        score += valuesVector->get(i) == targetVector->get(i);
     }
-    return score;
+    return 1 - score / valuesVector->getSize();
 }
 
 bool Virus::operator==(const Virus &virus) const {
@@ -83,8 +83,8 @@ std::ostream &operator<<(std::ostream &stream, Virus &virus) {
 
 void Virus::operator*() const {
     for (int k = 0; k < pM; ++k) {
-        int i = ((double)rand() * (valuesVector->getSize())) / RAND_MAX;
-        int j = ((double)rand() * (valuesVector->getSize())) / RAND_MAX;
+        int i = ((double) rand() * (valuesVector->getSize())) / RAND_MAX;
+        int j = ((double) rand() * (valuesVector->getSize())) / RAND_MAX;
         int tmp = valuesVector->get(i);
         valuesVector->set(i, valuesVector->get(j));
         valuesVector->set(j, tmp);
@@ -92,9 +92,9 @@ void Virus::operator*() const {
 }
 
 bool Virus::operator<(const Virus &virus) const {
-    if (getScore() == virus.getScore()) {
+    if (getErrorFromTarget() == virus.getErrorFromTarget()) {
         return genIndex < virus.genIndex;
     }
 
-    return getScore() < virus.getScore();
+    return getErrorFromTarget() < virus.getErrorFromTarget();
 }

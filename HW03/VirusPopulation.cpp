@@ -56,6 +56,6 @@ void VirusPopulation::operator*() {
 }
 
 bool VirusPopulation::foundMatch() {
-    return sortedLinkedList.getFirst()->getScore() == 0;
+    return sortedLinkedList.getFirst()->getErrorFromTarget() == 0;
 }
 
