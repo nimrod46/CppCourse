@@ -5,7 +5,6 @@
 #include "Virus.h"
 #include "DoubleVector.h"
 #include <iostream>
-#include <string.h>
 
 Virus::Virus(std::string &name, DoubleVector &valuesVector, DoubleVector *targetVector, int pM) : name(name) {
     this->valuesVector = new DoubleVector(valuesVector);
@@ -67,9 +66,6 @@ bool Virus::operator==(const Virus &virus) const {
     return this->name == virus.name && genIndex == virus.genIndex;
 }
 
-std::string Virus::getName() {
-    return name;
-}
 
 std::ostream &operator<<(std::ostream &stream, Virus &virus) {
     stream << virus.name;

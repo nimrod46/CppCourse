@@ -19,7 +19,7 @@ void VirusPopulation::addVirus(std::string &name, DoubleVector &values) {
     bestVirus = bestVirus == nullptr ? new Virus(*virus) : bestVirus;
 }
 
-void VirusPopulation::operator++(int i) {
+void VirusPopulation::operator++(int) {
     Virus *virusToRemove = sortedLinkedList.getlast();
     sortedLinkedList.remove(virusToRemove);
 

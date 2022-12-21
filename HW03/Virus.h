@@ -12,8 +12,6 @@
 class Virus {
 
 private:
-
-
     std::string name;
     DoubleVector *valuesVector;
     DoubleVector *targetVector;
@@ -23,14 +21,13 @@ private:
     int *lastGenVirusIndex;
 
 public:
-
     Virus(std::string &name, DoubleVector &valuesVector, DoubleVector *targetVector, int pM);
 
     explicit Virus(int defaultScore);
 
     Virus(Virus &virus);
 
-    Virus& operator=(const Virus &virus);
+    Virus &operator=(const Virus &virus);
 
     int getScore() const;
 
@@ -40,10 +37,7 @@ public:
 
     void operator*() const;
 
-    std::string getName();
-
     friend std::ostream &operator<<(std::ostream &stream, Virus &virus);
-
 };
 
 

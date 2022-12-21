@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
     int m;
     ss >> m;
 
-    DoubleVector *targetVector = new DoubleVector(0);
+    auto *targetVector = new DoubleVector(0);
     for (int i = 0; i < dim; ++i) {
         int n;
         ss >> n;
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 
     int vectorsCount;
     ss >> vectorsCount;
-    VirusPopulation virusPopulation(dim, m, targetVector);
+    VirusPopulation virusPopulation(m, targetVector);
     for (int i = 0; i < vectorsCount; ++i) {
         std::string name;
         ss >> name;

@@ -7,6 +7,7 @@
 SortedVirusLinkedList::SortedVirusLinkedList() {
     head = new VirusNode(INT_MIN);
     tail = new VirusNode(INT_MAX);
+    size = 0;
     p = head;
     head->setNext(tail);
     tail->setPrevious(head);
@@ -16,6 +17,7 @@ SortedVirusLinkedList::SortedVirusLinkedList() {
 SortedVirusLinkedList::SortedVirusLinkedList(SortedVirusLinkedList &sortedVirusLinkedList) {
     head = new VirusNode(INT_MIN);
     tail = new VirusNode(INT_MAX);
+    size = 0;
     p = head;
     head->setNext(tail);
     tail->setPrevious(head);
@@ -28,7 +30,6 @@ SortedVirusLinkedList::SortedVirusLinkedList(SortedVirusLinkedList &sortedVirusL
 
 void SortedVirusLinkedList::add(Virus *virus) {
     VirusNode *node = head;
-    int vScore = virus->getScore();
     while (*node->getVirus() < *virus) {
         node = node->getNext();
     }
@@ -68,10 +69,10 @@ int SortedVirusLinkedList::getSize() const {
 }
 
 bool SortedVirusLinkedList::getNext(Virus **next) {
-    if(p->getNext() == nullptr) {
+    if (p->getNext() == nullptr) {
         return false;
     }
-    if(p->getNext() != tail) {
+    if (p->getNext() != tail) {
         p = p->getNext();
         *next = (p->getVirus());
         return true;
@@ -80,10 +81,10 @@ bool SortedVirusLinkedList::getNext(Virus **next) {
 }
 
 bool SortedVirusLinkedList::getPrevious(Virus **previous) {
-    if(p->getPrevious() == nullptr) {
+    if (p->getPrevious() == nullptr) {
         return false;
     }
-    if(p->getPrevious() != head) {
+    if (p->getPrevious() != head) {
         p = p->getPrevious();
         *previous = (p->getVirus());
         return true;
