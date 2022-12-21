@@ -13,15 +13,14 @@ private:
     SortedVirusLinkedList sortedLinkedList;
     DoubleVector *targetVector;
     Virus* bestVirus;
-    int dim;
     int pM;
 
 public:
-    VirusPopulation(int dim, int pm, DoubleVector *targetVector);
+    VirusPopulation(int pm, DoubleVector *targetVector);
 
     void addVirus(std::string &name, DoubleVector &values);
 
-    VirusPopulation &operator++(int);
+    void operator++(int);
 
     void operator*();
 

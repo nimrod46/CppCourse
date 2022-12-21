@@ -26,12 +26,11 @@ public:
 
     Virus(std::string &name, DoubleVector &valuesVector, DoubleVector *targetVector, int pM);
 
-    Virus(int defaultScore);
+    explicit Virus(int defaultScore);
 
     Virus(Virus &virus);
 
     Virus& operator=(const Virus &virus);
-
 
     int getScore() const;
 

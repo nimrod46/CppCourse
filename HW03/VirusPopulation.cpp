@@ -6,26 +6,24 @@
 #include "VirusPopulation.h"
 
 
-VirusPopulation::VirusPopulation(int dim, int pm, DoubleVector *targetVector) {
-    this->dim = dim;
+VirusPopulation::VirusPopulation(int pm, DoubleVector *targetVector) {
     this->pM = pm;
     this->targetVector = new DoubleVector(*targetVector);
-    this->dim = dim;
     this->bestVirus = nullptr;
 }
 
 void VirusPopulation::addVirus(std::string &name, DoubleVector &values) {
-    Virus *virus = new Virus(name, values, targetVector, pM);
+    auto *virus = new Virus(name, values, targetVector, pM);
     sortedLinkedList.add(virus);
 
     bestVirus = bestVirus == nullptr ? new Virus(*virus) : bestVirus;
 }
 
-VirusPopulation &VirusPopulation::operator++(int i) {
+void VirusPopulation::operator++(int i) {
     Virus *virusToRemove = sortedLinkedList.getlast();
     sortedLinkedList.remove(virusToRemove);
 
-    Virus *virus = new Virus(*sortedLinkedList.getFirst());
+    auto *virus = new Virus(*sortedLinkedList.getFirst());
     sortedLinkedList.add(virus);
 }
 
