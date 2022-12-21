@@ -12,6 +12,7 @@ class VirusPopulation {
 private:
     SortedVirusLinkedList sortedLinkedList;
     DoubleVector *targetVector;
+    Virus* bestVirus;
     int dim;
     int pM;
 

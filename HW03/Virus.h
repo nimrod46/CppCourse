@@ -30,6 +30,9 @@ public:
 
     Virus(Virus &virus);
 
+    Virus& operator=(const Virus &virus);
+
+
     int getScore() const;
 
     bool operator==(const Virus &virus) const;

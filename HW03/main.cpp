@@ -10,7 +10,6 @@
 #include "VirusPopulation.h"
 
 int main(int argc, char *argv[]) {
-
     std::string configFileName = argv[1];
     std::string firstGenerationFileName = argv[2];
 

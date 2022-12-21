@@ -37,6 +37,21 @@ Virus::Virus(Virus &virus) : name(virus.name) {
     lastGenVirusIndex = virus.lastGenVirusIndex;
 }
 
+Virus &Virus::operator=(const Virus &virus) {
+    if (this == &virus) {
+        return (*this);
+    }
+
+    this->name = virus.name;
+    this->valuesVector = new DoubleVector(*virus.valuesVector);
+    this->targetVector = virus.targetVector;
+    this->defaultScore = -1;
+    this->pM = virus.pM;
+    genIndex = virus.genIndex;
+    lastGenVirusIndex = virus.lastGenVirusIndex;
+    return *this;
+}
+
 int Virus::getScore() const {
     if (defaultScore != -1) {
         return defaultScore;
@@ -72,9 +87,8 @@ std::ostream &operator<<(std::ostream &stream, Virus &virus) {
 
 void Virus::operator*() const {
     for (int k = 0; k < pM; ++k) {
-
-        int i = ((double)rand() * (valuesVector->getSize())) / (double)RAND_MAX;
-        int j = ((double)rand() * (valuesVector->getSize())) / (double)RAND_MAX;
+        int i = ((double)rand() * (valuesVector->getSize())) / RAND_MAX;
+        int j = ((double)rand() * (valuesVector->getSize())) / RAND_MAX;
         int tmp = valuesVector->get(i);
         valuesVector->set(i, valuesVector->get(j));
         valuesVector->set(j, tmp);
