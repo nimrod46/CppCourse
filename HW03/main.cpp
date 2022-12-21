@@ -10,12 +10,22 @@
 #include "VirusPopulation.h"
 
 int main(int argc, char *argv[]) {
+    if(argc != 3) {
+        std::cerr << "Usage: run the program with <init file name> <location file name>" << std::endl;
+        exit(-1);
+    }
     std::string configFileName = argv[1];
     std::string firstGenerationFileName = argv[2];
 
 
     std::ifstream file;
     file.open(configFileName);
+
+    if(file.fail()) {
+        std::cerr << "Invalid input." << std::endl;
+        exit(-1);
+    }
+
     std::stringstream ss;
     ss << file.rdbuf();
 
@@ -34,6 +44,12 @@ int main(int argc, char *argv[]) {
     }
 
     file.open(firstGenerationFileName);
+
+    if(file.fail()) {
+        std::cerr << "Invalid input." << std::endl;
+        exit(-1);
+    }
+
     ss << file.rdbuf();
     file.close();
 
@@ -48,6 +64,10 @@ int main(int argc, char *argv[]) {
             int n;
             ss >> n;
             values.add(n);
+        }
+        if(ss.fail()) {
+            std::cerr << "Invalid input." << std::endl;
+            exit(-1);
         }
         virusPopulation.addVirus(name, values);
     }
