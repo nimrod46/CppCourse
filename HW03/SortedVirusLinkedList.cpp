@@ -40,6 +40,7 @@ SortedVirusLinkedList &SortedVirusLinkedList::operator=(const SortedVirusLinkedL
     if(rhs.size == 0) {
         return *this;
     }
+
     VirusNode *vNode = rhs.tail->getPrevious();
     while(vNode->getPrevious()) {
         add(vNode->getVirus());

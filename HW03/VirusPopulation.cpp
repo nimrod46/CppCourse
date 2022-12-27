@@ -23,6 +23,8 @@ VirusPopulation::VirusPopulation(VirusPopulation &rhs) {
     this->bestVirus = nullptr;
     this->lastGensIndexes = nullptr;
     this->targetVector = nullptr;
+    pM = 0;
+    dim = 0;
     *this = rhs;
 }
 
