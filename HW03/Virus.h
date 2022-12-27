@@ -29,6 +29,10 @@ public:
 
     Virus &operator=(const Virus &virus);
 
+    Virus(Virus &&virus) noexcept;
+
+    Virus & operator=(Virus &&virus) noexcept;
+
     double getErrorFromTarget() const;
 
     bool operator==(const Virus &virus) const;
