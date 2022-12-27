@@ -46,6 +46,7 @@ SortedVirusLinkedList &SortedVirusLinkedList::operator=(const SortedVirusLinkedL
         add(vNode->getVirus());
         vNode = vNode->getPrevious();
     }
+    return *this;
 }
 
 SortedVirusLinkedList::~SortedVirusLinkedList() {

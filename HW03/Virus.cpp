@@ -55,6 +55,33 @@ Virus &Virus::operator=(const Virus &virus) {
     return *this;
 }
 
+Virus::Virus(Virus &&virus) noexcept {
+    this->name = nullptr;
+    this->valuesVector = nullptr;
+    this->targetVector = nullptr;
+    this->lastGenVirusIndex = nullptr;
+    this->defaultScore = -1;
+    this->pM = 0;
+    genIndex = 0;
+    *this = std::move(virus);
+}
+
+Virus &Virus::operator=(Virus &&virus) noexcept {
+    this->name = virus.name;
+    this->valuesVector = virus.valuesVector;
+    this->targetVector = virus.targetVector;
+    this->lastGenVirusIndex = virus.lastGenVirusIndex;
+    this->genIndex = virus.genIndex;
+    this->pM = virus.pM;
+    this->defaultScore = virus.genIndex;
+
+    virus.name = nullptr;
+    virus.valuesVector = nullptr;
+    virus.targetVector = nullptr;
+    virus.lastGenVirusIndex = nullptr;
+    return *this;
+}
+
 double Virus::getErrorFromTarget() const {
     if (defaultScore != -1) {
         return defaultScore;
@@ -66,10 +93,10 @@ double Virus::getErrorFromTarget() const {
     return 1 - score / valuesVector->getSize();
 }
 
+
 bool Virus::operator==(const Virus &virus) const {
     return this->name == virus.name && genIndex == virus.genIndex;
 }
-
 
 std::ostream &operator<<(std::ostream &stream, Virus &virus) {
     stream << virus.name;
@@ -105,30 +132,4 @@ bool Virus::operator<(const Virus &virus) const {
 
 Virus::~Virus() {
     delete valuesVector;
-}
-
-Virus::Virus(Virus &&virus) noexcept {
-    this->name = nullptr;
-    this->valuesVector = nullptr;
-    this->targetVector = nullptr;
-    this->lastGenVirusIndex = nullptr;
-    this->defaultScore = -1;
-    this->pM = 0;
-    genIndex = 0;
-    *this = std::move(virus);
-}
-
-Virus &Virus::operator=(Virus &&virus) noexcept {
-    this->name = virus.name;
-    this->valuesVector = virus.valuesVector;
-    this->targetVector = virus.targetVector;
-    this->lastGenVirusIndex = virus.lastGenVirusIndex;
-    this->genIndex = virus.genIndex;
-    this->pM = virus.pM;
-    this->defaultScore = virus.genIndex;
-
-    virus.name = nullptr;
-    virus.valuesVector = nullptr;
-    virus.targetVector = nullptr;
-    virus.lastGenVirusIndex = nullptr;
 }

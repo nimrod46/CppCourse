@@ -37,6 +37,7 @@ DoubleVector &DoubleVector::operator=(const DoubleVector &rhs) {
     for (int i = 0; i < size; ++i) {
         values[i] = rhs.get(i);
     }
+    return *this;
 }
 
 DoubleVector::~DoubleVector() {
