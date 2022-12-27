@@ -67,6 +67,8 @@ public: //There is no need for move ctor and oper as there is no logic in moving
 
     SortedVirusLinkedList &operator=(const SortedVirusLinkedList &rhs);
 
+    ~SortedVirusLinkedList();
+
     void add(Virus *virus);
 
     void remove(Virus *virus);

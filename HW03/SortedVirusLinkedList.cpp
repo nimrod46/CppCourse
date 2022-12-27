@@ -48,6 +48,15 @@ SortedVirusLinkedList &SortedVirusLinkedList::operator=(const SortedVirusLinkedL
     }
 }
 
+SortedVirusLinkedList::~SortedVirusLinkedList() {
+    VirusNode *vNode = head;
+    while(vNode) {
+        VirusNode * tmpNode = vNode->getNext();
+        delete vNode;
+        vNode = tmpNode;
+    }
+}
+
 void SortedVirusLinkedList::add(Virus *virus) {
     VirusNode *node = head;
     while (*node->getVirus() < *virus) {
