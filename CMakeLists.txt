@@ -9,4 +9,5 @@ HW01/Observation.cpp HW01/Observation.h HW01/ObservationVector.cpp HW01/Observat
 lab04/SquareMat.h lab04/main.cpp lab05/Stack.cpp lab05/Stack.h lab05/main.cpp lab06/Stack.cpp lab06/Stack.h lab06/main.cpp
 lab06/List.cpp HW02/main.cpp HW02/Board.cpp HW02/Board.h HW02/Cell.cpp HW02/Cell.h HW02/Player.cpp HW02/Player.h
 lab07/Robot.cpp lab07/Robot.h lab07/Transformer.h lab07/Transformer.cpp HW03/main.cpp HW03/Virus.cpp
-        HW03/Virus.h HW03/SortedVirusLinkedList.cpp HW03/SortedVirusLinkedList.h HW03/VirusPopulation.cpp HW03/VirusPopulation.h)
+        HW03/Virus.h HW03/SortedVirusLinkedList.cpp HW03/SortedVirusLinkedList.h HW03/VirusPopulation.cpp HW03/VirusPopulation.h
+lab07/Robot.cpp lab07/Robot.h lab07/Transformer.h lab07/Transformer.cpp lab08/Shape.h lab08/Shape.cpp lab08/Rectangle.h lab08/Rectangle.cpp lab08/Triangle.h lab08/Triangle.cpp lab08/Square.h lab08/Square.cpp lab08/RightTriangle.h lab08/RightTriangle.cpp lab08/main.cpp)
