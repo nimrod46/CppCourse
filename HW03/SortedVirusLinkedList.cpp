@@ -5,8 +5,8 @@
 #include "SortedVirusLinkedList.h"
 
 SortedVirusLinkedList::SortedVirusLinkedList() {
-    head = new VirusNode(INT_MIN);
-    tail = new VirusNode(INT_MAX);
+    head = new VirusNode(new Virus(INT_MIN));
+    tail = new VirusNode(new Virus(INT_MAX));
     size = 0;
     p = head;
     head->setNext(tail);
@@ -15,8 +15,8 @@ SortedVirusLinkedList::SortedVirusLinkedList() {
 }
 
 SortedVirusLinkedList::SortedVirusLinkedList(SortedVirusLinkedList &sortedVirusLinkedList) {
-    head = new VirusNode(INT_MIN);
-    tail = new VirusNode(INT_MAX);
+    head = new VirusNode(new Virus(INT_MIN));
+    tail = new VirusNode(new Virus(INT_MAX));
     size = 0;
     p = head;
     head->setNext(tail);

@@ -105,8 +105,6 @@ bool Virus::operator<(const Virus &virus) const {
 
 Virus::~Virus() {
     delete valuesVector;
-    delete valuesVector;
-    delete valuesVector;
 }
 
 Virus::Virus(Virus &&virus) noexcept {

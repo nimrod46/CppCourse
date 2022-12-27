@@ -17,8 +17,8 @@ private:
         VirusNode *next;
         VirusNode *previous;
 
-    public:
-        explicit VirusNode(int defaultScore) : VirusNode(new Virus(defaultScore), nullptr, nullptr) {
+    public: //All allocation are handled outside the class wo we don't need big three
+        explicit VirusNode(Virus *virus) : VirusNode(virus, nullptr, nullptr) {
 
         }
 

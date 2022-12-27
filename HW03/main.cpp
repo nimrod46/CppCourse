@@ -84,6 +84,6 @@ int main(int argc, char *argv[]) {
     }
     std::cout << *virusPopulation;
 
-//    delete virusPopulation;
-//    delete targetVector;
+    delete virusPopulation;
+    delete targetVector;
 }
