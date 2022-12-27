@@ -14,17 +14,36 @@ SortedVirusLinkedList::SortedVirusLinkedList() {
 
 }
 
-SortedVirusLinkedList::SortedVirusLinkedList(SortedVirusLinkedList &sortedVirusLinkedList) {
+SortedVirusLinkedList::SortedVirusLinkedList(SortedVirusLinkedList &rhs) {
+    head = nullptr;
+    tail = nullptr;
+    p = nullptr;
+    size = 0;
+    *this = rhs;
+}
+
+SortedVirusLinkedList &SortedVirusLinkedList::operator=(const SortedVirusLinkedList &rhs) {
+    if (this == &rhs) {
+        return (*this);
+    }
+
+    delete head;
+    delete tail;
+    delete p;
+
     head = new VirusNode(new Virus(INT_MIN));
     tail = new VirusNode(new Virus(INT_MAX));
     size = 0;
     p = head;
     head->setNext(tail);
     tail->setPrevious(head);
-    add(sortedVirusLinkedList.getlast());
-    Virus *virus;
-    while (sortedVirusLinkedList.getPrevious(&virus)) {
-        add(virus);
+    if(rhs.size == 0) {
+        return *this;
+    }
+    VirusNode *vNode = rhs.tail->getPrevious();
+    while(vNode->getPrevious()) {
+        add(vNode->getVirus());
+        vNode = vNode->getPrevious();
     }
 }
 

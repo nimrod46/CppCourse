@@ -60,10 +60,12 @@ private:
     int size;
 
 
-public:
+public: //There is no need for move ctor and oper as there is no logic in moving the SortedLinkedList in my code
     SortedVirusLinkedList();
 
     SortedVirusLinkedList(SortedVirusLinkedList &sortedVirusLinkedList);
+
+    SortedVirusLinkedList &operator=(const SortedVirusLinkedList &rhs);
 
     void add(Virus *virus);
 

@@ -10,8 +10,11 @@ private:
     int size;
     int capacity;
     double *values;
-public:
+public: //There is no need for move ctor and oper as there is no logic in moving a vector in my code
     explicit DoubleVector(int size);
+
+    DoubleVector &operator=(const DoubleVector &rhs);
+
     DoubleVector(DoubleVector& doubleVector);
 
     ~DoubleVector();

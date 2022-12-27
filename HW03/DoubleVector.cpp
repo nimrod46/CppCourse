@@ -24,6 +24,21 @@ DoubleVector::DoubleVector(DoubleVector& doubleVector) {
     }
 }
 
+DoubleVector &DoubleVector::operator=(const DoubleVector &rhs) {
+    if (this == &rhs) {
+        return (*this);
+    }
+
+    delete values;
+
+    this->size = rhs.size;
+    capacity = rhs.capacity;
+    values = new double[capacity];
+    for (int i = 0; i < size; ++i) {
+        values[i] = rhs.get(i);
+    }
+}
+
 DoubleVector::~DoubleVector() {
     delete values;
 }

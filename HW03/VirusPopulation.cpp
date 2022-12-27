@@ -49,6 +49,10 @@ VirusPopulation &VirusPopulation::operator=(const VirusPopulation &rhs) {
 }
 
 VirusPopulation::~VirusPopulation() {
+    Virus* v = sortedLinkedList->getFirst();
+    while (sortedLinkedList->getNext(&v)) {
+        delete v;
+    }
     delete sortedLinkedList;
     delete targetVector;
     for (int i = 0; i < dim; ++i) {
