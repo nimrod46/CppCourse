@@ -14,7 +14,7 @@ public:
     explicit DoubleVector(int size);
     DoubleVector(DoubleVector& doubleVector);
 
-    void destroy();
+    ~DoubleVector();
 
     DoubleVector& add(double value);
 

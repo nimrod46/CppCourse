@@ -24,8 +24,7 @@ DoubleVector::DoubleVector(DoubleVector& doubleVector) {
     }
 }
 
-
-void DoubleVector::destroy() {
+DoubleVector::~DoubleVector() {
     delete values;
 }
 

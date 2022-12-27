@@ -6,13 +6,14 @@
 #include "DoubleVector.h"
 #include <iostream>
 
-Virus::Virus(std::string &name, DoubleVector &valuesVector, DoubleVector *targetVector, int pM) : name(name) {
+Virus::Virus(std::string &name, DoubleVector &valuesVector, DoubleVector *targetVector, int *lastGenVirusIndex, int pM)
+        : name(name) {
     this->valuesVector = new DoubleVector(valuesVector);
     this->targetVector = targetVector;
+    this->lastGenVirusIndex = lastGenVirusIndex;
     this->pM = pM;
     this->defaultScore = -1;
     genIndex = 0;
-    lastGenVirusIndex = new int(0);
 }
 
 
@@ -20,10 +21,11 @@ Virus::Virus(int defaultScore) {
     name = "";
     this->valuesVector = nullptr;
     this->targetVector = nullptr;
+    lastGenVirusIndex = nullptr;
     this->pM = 0;
     this->defaultScore = defaultScore;
     genIndex = 0;
-    lastGenVirusIndex = new int(0);
+    lastGenVirusIndex = nullptr;
 }
 
 Virus::Virus(Virus &virus) : name(virus.name) {
@@ -41,10 +43,7 @@ Virus &Virus::operator=(const Virus &virus) {
         return (*this);
     }
 
-    if(valuesVector != nullptr) {
-        valuesVector->destroy();
-        delete valuesVector;
-    }
+    delete valuesVector;
 
     this->name = virus.name;
     this->valuesVector = new DoubleVector(*virus.valuesVector);
@@ -102,6 +101,12 @@ bool Virus::operator<(const Virus &virus) const {
     }
 
     return getErrorFromTarget() < virus.getErrorFromTarget();
+}
+
+Virus::~Virus() {
+    delete valuesVector;
+    delete valuesVector;
+    delete valuesVector;
 }
 
 Virus::Virus(Virus &&virus) noexcept {

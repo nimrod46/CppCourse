@@ -10,15 +10,23 @@
 
 class VirusPopulation {
 private:
-    SortedVirusLinkedList sortedLinkedList;
+    SortedVirusLinkedList* sortedLinkedList;
     DoubleVector *targetVector;
+    int ** lastGensIndexes;
     Virus* bestVirus;
     int pM;
+    int dim;
 
 public:
-    VirusPopulation(int pm, DoubleVector *targetVector);
+    VirusPopulation(int pm, int dim, DoubleVector *targetVector);
 
-    void addVirus(std::string &name, DoubleVector &values);
+    void addVirus(std::string &name, DoubleVector &values, int index);
+
+    VirusPopulation(VirusPopulation &rhs);
+
+    VirusPopulation &operator=(const VirusPopulation &rhs);
+
+    ~VirusPopulation();
 
     void operator++(int);
 

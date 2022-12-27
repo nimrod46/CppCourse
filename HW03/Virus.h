@@ -15,13 +15,13 @@ private:
     std::string name;
     DoubleVector *valuesVector;
     DoubleVector *targetVector;
+    int *lastGenVirusIndex;
     int genIndex;
     int pM;
     int defaultScore;
-    int *lastGenVirusIndex;
 
 public:
-    Virus(std::string &name, DoubleVector &valuesVector, DoubleVector *targetVector, int pM);
+    Virus(std::string &name, DoubleVector &valuesVector, DoubleVector *targetVector, int *lastGenVirusIndex, int pM);
 
     explicit Virus(int defaultScore);
 
@@ -29,9 +29,11 @@ public:
 
     Virus &operator=(const Virus &virus);
 
+    ~Virus();
+
     Virus(Virus &&virus) noexcept;
 
-    Virus & operator=(Virus &&virus) noexcept;
+    Virus &operator=(Virus &&virus) noexcept;
 
     double getErrorFromTarget() const;
 
