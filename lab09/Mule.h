@@ -16,7 +16,7 @@ public:
                                               Donkey(gender, name),
                                               Horse(gender, name) {}
 
-    void speak() override { std::cout << "Mule " << getName(); }
+    void speak() override { std::cout << "Mule " << getName() << std::endl; }
 };
 
 

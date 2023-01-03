@@ -12,7 +12,7 @@
 class Horse : virtual public Animal {
 public:
     Horse(Gender& gender, std::string& name) : Animal(gender, name) {}
-    void speak() override { std::cout << "Horse " << getName(); }
+    void speak() override { std::cout << "Horse " << getName() << std::endl; }
 };
 
 
