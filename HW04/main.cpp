@@ -8,14 +8,17 @@ int main() {
     int i = -1;
     int m = 110000;
     Queue<int> *queue = new Queue<int>(i, m);
-
-    i = 1;
-    queue->addByPriority(&i);
-    int d = 2;
-    queue->addByPriority(&d);
     int e = 3;
-    queue->addByPriority(&e);
+    queue->add(&e);
 
-    std::cout << *queue->getFirst();
+    int d = 2;
+    queue->add(&d);
+    i = 1;
+    queue->add(&i);
+
+    int f = 0;
+    queue->add(&f);
+
+    std::cout << *queue;
     return 0;
 }

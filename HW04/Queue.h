@@ -103,8 +103,8 @@ Queue<T>::Queue(T &defaultMinValue, T &defaultMaxValue) {
     tail = new Node<T>(new T(defaultMaxValue));
     size = 0;
     cursor = head;
-    head->setNext(tail);
-    tail->setPrevious(head);
+    head->setPrevious(tail);
+    tail->setNext(head);
 
 }
 
@@ -131,16 +131,16 @@ Queue<T> &Queue<T>::operator=(const Queue &rhs) {
     tail = new Node<T>(new T(rhs.tail->getValue()));
     size = 0;
     cursor = head;
-    head->setNext(tail);
-    tail->setPrevious(head);
+    head->setPrevious(tail);
+    tail->setNext(head);
     if (rhs.size == 0) {
         return *this;
     }
 
-    Node<T> *vNode = rhs.tail->getPrevious();
-    while (vNode->getPrevious()) {
+    Node<T> *vNode = rhs.tail->getNext();
+    while (vNode->getNext()) {
         addByPriority(vNode->getValue());
-        vNode = vNode->getPrevious();
+        vNode = vNode->getNext();
     }
     return *this;
 }
@@ -149,7 +149,7 @@ template<typename T>
 Queue<T>::~Queue() {
     Node<T> *vNode = head;
     while (vNode) {
-        Node<T> *tmpNode = vNode->getNext();
+        Node<T> *tmpNode = vNode->getPrevious();
         delete vNode;
         vNode = tmpNode;
     }
@@ -165,7 +165,7 @@ void Queue<T>::addNewNodeBefore(T *value, Node<T> *first) {
 
 template<typename T>
 void Queue<T>::addByPriority(T *value) {
-    Node<T> *node = head;
+    Node<T> *node = tail;
     while (*node->getValue() < *value) {
         node = node->getNext();
     }
@@ -174,7 +174,7 @@ void Queue<T>::addByPriority(T *value) {
 
 template<typename T>
 void Queue<T>::add(T *value) {
-    Node<T> *first = tail->getPrevious();
+    Node<T> *first = tail->getNext();
     addNewNodeBefore(value, first);
 }
 
@@ -182,28 +182,28 @@ template<typename T>
 void Queue<T>::remove(T *virus) {
     Node<T> *node = head;
     while (node != nullptr && !node->isEquals(*virus)) {
-        node = node->getNext();
+        node = node->getPrevious();
     }
 
     if (node == nullptr) {
         return;
     }
     size--;
-    node->getPrevious()->setNext(node->getNext());
     node->getNext()->setPrevious(node->getPrevious());
+    node->getPrevious()->setNext(node->getNext());
     delete node;
 }
 
 template<typename T>
 T *Queue<T>::getFirst() {
-    cursor = head->getNext();
-    return head->getNext()->getValue();
+    cursor = head->getPrevious();
+    return head->getPrevious()->getValue();
 }
 
 template<typename T>
 T *Queue<T>::getlast() {
-    cursor = tail->getPrevious();
-    return tail->getPrevious()->getValue();
+    cursor = tail->getNext();
+    return tail->getNext()->getValue();
 }
 
 template<typename T>
@@ -216,7 +216,7 @@ bool Queue<T>::getNext(T **next) {
     if (cursor->getNext() == nullptr) {
         return false;
     }
-    if (cursor->getNext() != tail) {
+    if (cursor->getNext() != head) {
         cursor = cursor->getNext();
         *next = (cursor->getValue());
         return true;
@@ -229,7 +229,7 @@ bool Queue<T>::getPrevious(T **previous) {
     if (cursor->getPrevious() == nullptr) {
         return false;
     }
-    if (cursor->getPrevious() != head) {
+    if (cursor->getPrevious() != tail) {
         cursor = cursor->getPrevious();
         *previous = (cursor->getValue());
         return true;
@@ -241,7 +241,7 @@ template<typename T>
 std::ostream &operator<<(std::ostream &stream, Queue<T> &queue) {
     T *value;
     stream << *queue.getFirst();
-    while (queue.getNext(&value)) {
+    while (queue.getPrevious(&value)) {
         stream << *value;
     }
     stream << std::endl;
