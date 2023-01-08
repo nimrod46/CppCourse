@@ -86,6 +86,8 @@ public: //There is no need for move ctor and oper as there is no logic in moving
 
     T *getlast();
 
+    void sort();
+
     bool getNext(T **next);
 
     bool getPrevious(T **previous);
@@ -96,6 +98,17 @@ public: //There is no need for move ctor and oper as there is no logic in moving
     friend std::ostream &operator<<(std::ostream &stream, Queue<U> &queue);
 
 };
+
+template<typename T>
+void Queue<T>::sort() {
+    Queue<T> tempQueue(*this);
+    clear();
+    T* v = tempQueue.pop();
+    while (v != nullptr) {
+        addByPriority(v);
+        v = tempQueue.pop();
+    }
+}
 
 template<typename T>
 T *Queue<T>::clear() {
@@ -138,8 +151,8 @@ T *Queue<T>::pop() {
 
 template<typename T>
 Queue<T>::Queue(T &defaultMinValue, T &defaultMaxValue) {
-    head = new Node<T>(new T(defaultMinValue));
-    tail = new Node<T>(new T(defaultMaxValue));
+    head = new Node<T>(new T(defaultMaxValue));
+    tail = new Node<T>(new T(defaultMinValue));
     size = 0;
     cursor = head;
     head->setPrevious(tail);
@@ -165,8 +178,8 @@ Queue<T> &Queue<T>::operator=(const Queue &rhs) {
     delete tail;
     delete cursor;
 
-    head = new Node<T>(new T(rhs.head->getValue()));
-    tail = new Node<T>(new T(rhs.tail->getValue()));
+    head = new Node<T>(new T(*rhs.head->getValue()));
+    tail = new Node<T>(new T(*rhs.tail->getValue()));
     size = 0;
     cursor = head;
     head->setPrevious(tail);
@@ -203,7 +216,7 @@ void Queue<T>::addNewNodeBefore(T *value, Node<T> *first) {
 
 template<typename T>
 void Queue<T>::addByPriority(T *value) {
-    Node<T> *node = tail;
+    Node<T> *node = tail->getNext();
     while (*node->getValue() < *value) {
         node = node->getNext();
     }
