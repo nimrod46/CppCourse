@@ -58,6 +58,9 @@ private:
     Node<T> *cursor;
 
     int size;
+
+    void addNewNodeBefore(T *value, Node<T> *first);
+
 public: //There is no need for move ctor and oper as there is no logic in moving the SortedLinkedList in my code
     Queue(T &defaultMinValue, T &defaultMaxValue);
 
@@ -68,6 +71,7 @@ public: //There is no need for move ctor and oper as there is no logic in moving
     ~Queue();
 
     void addByPriority(T *value);
+
     void add(T *value);
 
     void remove(T *virus);
@@ -82,8 +86,11 @@ public: //There is no need for move ctor and oper as there is no logic in moving
 
     int getSize() const;
 
-    template<class U> friend std::ostream &operator<<(std::ostream &stream, Queue<U> &queue);
+    template<class U>
+    friend std::ostream &operator<<(std::ostream &stream, Queue<U> &queue);
+
 };
+
 #endif //CPPCOURSE_QUEUE_H
 
 //
@@ -149,16 +156,28 @@ Queue<T>::~Queue() {
 }
 
 template<typename T>
+void Queue<T>::addNewNodeBefore(T *value, Node<T> *first) {
+    Node<T> *newNode = new Node<T>(value, first, first->getPrevious());
+    first->getPrevious()->setNext(newNode);
+    first->setPrevious(newNode);
+    size++;
+}
+
+template<typename T>
 void Queue<T>::addByPriority(T *value) {
     Node<T> *node = tail;
     while (*node->getValue() < *value) {
         node = node->getNext();
     }
-    auto *newNode = new Node<T>(value, node, node->getPrevious());
-    node->getPrevious()->setNext(newNode);
-    node->setPrevious(newNode);
-    size++;
+    addNewNodeBefore(value, node);
 }
+
+template<typename T>
+void Queue<T>::add(T *value) {
+    Node<T> *first = tail->getNext();
+    addNewNodeBefore(value, first);
+}
+
 
 template<typename T>
 void Queue<T>::remove(T *virus) {
@@ -220,7 +239,7 @@ bool Queue<T>::getPrevious(T **previous) {
 }
 
 template<typename T>
-std::ostream &operator<<(std::ostream &stream, Queue<T>& queue) {
+std::ostream &operator<<(std::ostream &stream, Queue<T> &queue) {
     T *value;
     stream << *queue.getFirst();
     while (queue.getNext(&value)) {
