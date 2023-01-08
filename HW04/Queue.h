@@ -78,6 +78,12 @@ public: //There is no need for move ctor and oper as there is no logic in moving
 
     T *getFirst();
 
+    T *peak();
+
+    T *pop();
+
+    T *clear();
+
     T *getlast();
 
     bool getNext(T **next);
@@ -90,6 +96,39 @@ public: //There is no need for move ctor and oper as there is no logic in moving
     friend std::ostream &operator<<(std::ostream &stream, Queue<U> &queue);
 
 };
+
+template<typename T>
+T *Queue<T>::clear() {
+    Node<T> *vNode = head->getPrevious();
+    while (vNode != tail) {
+        Node<T> *tmpNode = vNode->getPrevious();
+        delete vNode;
+        vNode = tmpNode;
+    }
+    head->setPrevious(tail);
+    tail->setNext(head);
+    cursor = head;
+    size = 0;
+}
+
+template<typename T>
+T *Queue<T>::peak() {
+    if (head->getPrevious() == tail) {
+        return nullptr;
+    }
+    return head->getPrevious();
+}
+
+template<typename T>
+T *Queue<T>::pop() {
+    Node<T> *node = head->getPrevious();
+    if (node == tail) {
+        return nullptr;
+    }
+    T* value = node->getValue();
+    remove(value);
+    return value;
+}
 
 #endif //CPPCOURSE_QUEUE_H
 
@@ -105,7 +144,7 @@ Queue<T>::Queue(T &defaultMinValue, T &defaultMaxValue) {
     cursor = head;
     head->setPrevious(tail);
     tail->setNext(head);
-
+    size = 0;
 }
 
 template<typename T>
@@ -113,7 +152,6 @@ Queue<T>::Queue(Queue<T> &rhs) {
     head = nullptr;
     tail = nullptr;
     cursor = nullptr;
-    size = 0;
     *this = rhs;
 }
 
@@ -240,6 +278,9 @@ bool Queue<T>::getPrevious(T **previous) {
 template<typename T>
 std::ostream &operator<<(std::ostream &stream, Queue<T> &queue) {
     T *value;
+    if(queue.getSize() == 0) {
+        return stream;
+    }
     stream << *queue.getFirst();
     while (queue.getPrevious(&value)) {
         stream << *value;

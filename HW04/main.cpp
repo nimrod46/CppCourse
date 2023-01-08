@@ -20,5 +20,9 @@ int main() {
     queue->add(&f);
 
     std::cout << *queue;
+
+    queue->clear();
+
+    std::cout << *queue;
     return 0;
 }
