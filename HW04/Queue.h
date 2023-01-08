@@ -62,7 +62,7 @@ public:
 public: //There is no need for move ctor and oper as there is no logic in moving the SortedLinkedList in my code
     Queue(T &defaultMinValue, T &defaultMaxValue);
 
-    Queue(Queue &queue);
+    Queue(Queue<T> &rhs);
 
     Queue &operator=(const Queue &rhs);
 
@@ -104,7 +104,7 @@ Queue<T>::Queue(T &defaultMinValue, T &defaultMaxValue) {
 }
 
 template<typename T>
-Queue<T>::Queue(Queue &rhs) {
+Queue<T>::Queue(Queue<T> &rhs) {
     head = nullptr;
     tail = nullptr;
     p = nullptr;
