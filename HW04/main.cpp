@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Queue.h"
+#include "Vector.h"
 
 //
 // Created by nimrod on 08-Jan-23.
@@ -24,5 +25,12 @@ int main() {
     queue->sort();
 
     std::cout << *queue;
+
+    Vector<double>* vector = new Vector<double>(2);
+    vector->add(1);
+    vector->add(2);
+    vector->add(14);
+    vector->add(25);
+    std::cout << *vector;
     return 0;
 }
