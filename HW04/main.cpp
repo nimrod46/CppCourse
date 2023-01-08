@@ -10,11 +10,11 @@ int main() {
     Queue<int> *queue = new Queue<int>(i, m);
 
     i = 1;
-    queue->add(&i);
+    queue->addByPriority(&i);
     int d = 2;
-    queue->add(&d);
+    queue->addByPriority(&d);
     int e = 3;
-    queue->add(&e);
+    queue->addByPriority(&e);
 
     std::cout << *queue->getFirst();
     return 0;
