@@ -99,12 +99,12 @@ public: //There is no need for move ctor and oper as there is no logic in moving
 
 template<typename T>
 Queue<T>::Queue(T &defaultMinValue, T &defaultMaxValue) {
-    head = new Node<T>(new T(defaultMaxValue));
-    tail = new Node<T>(new T(defaultMinValue));
+    head = new Node<T>(new T(defaultMinValue));
+    tail = new Node<T>(new T(defaultMaxValue));
     size = 0;
-    cursor = tail;
-    tail->setNext(head);
-    head->setPrevious(tail);
+    cursor = head;
+    head->setNext(tail);
+    tail->setPrevious(head);
 
 }
 
@@ -130,14 +130,14 @@ Queue<T> &Queue<T>::operator=(const Queue &rhs) {
     head = new Node<T>(new T(rhs.head->getValue()));
     tail = new Node<T>(new T(rhs.tail->getValue()));
     size = 0;
-    cursor = tail;
-    tail->setNext(head);
-    head->setPrevious(tail);
+    cursor = head;
+    head->setNext(tail);
+    tail->setPrevious(head);
     if (rhs.size == 0) {
         return *this;
     }
 
-    Node<T> *vNode = rhs.head->getPrevious();
+    Node<T> *vNode = rhs.tail->getPrevious();
     while (vNode->getPrevious()) {
         addByPriority(vNode->getValue());
         vNode = vNode->getPrevious();
@@ -147,7 +147,7 @@ Queue<T> &Queue<T>::operator=(const Queue &rhs) {
 
 template<typename T>
 Queue<T>::~Queue() {
-    Node<T> *vNode = tail;
+    Node<T> *vNode = head;
     while (vNode) {
         Node<T> *tmpNode = vNode->getNext();
         delete vNode;
@@ -165,7 +165,7 @@ void Queue<T>::addNewNodeBefore(T *value, Node<T> *first) {
 
 template<typename T>
 void Queue<T>::addByPriority(T *value) {
-    Node<T> *node = tail;
+    Node<T> *node = head;
     while (*node->getValue() < *value) {
         node = node->getNext();
     }
@@ -174,14 +174,13 @@ void Queue<T>::addByPriority(T *value) {
 
 template<typename T>
 void Queue<T>::add(T *value) {
-    Node<T> *first = tail->getNext();
+    Node<T> *first = tail->getPrevious();
     addNewNodeBefore(value, first);
 }
 
-
 template<typename T>
 void Queue<T>::remove(T *virus) {
-    Node<T> *node = tail;
+    Node<T> *node = head;
     while (node != nullptr && !node->isEquals(*virus)) {
         node = node->getNext();
     }
@@ -197,14 +196,14 @@ void Queue<T>::remove(T *virus) {
 
 template<typename T>
 T *Queue<T>::getFirst() {
-    cursor = tail->getNext();
-    return tail->getNext()->getValue();
+    cursor = head->getNext();
+    return head->getNext()->getValue();
 }
 
 template<typename T>
 T *Queue<T>::getlast() {
-    cursor = head->getPrevious();
-    return head->getPrevious()->getValue();
+    cursor = tail->getPrevious();
+    return tail->getPrevious()->getValue();
 }
 
 template<typename T>
@@ -217,7 +216,7 @@ bool Queue<T>::getNext(T **next) {
     if (cursor->getNext() == nullptr) {
         return false;
     }
-    if (cursor->getNext() != head) {
+    if (cursor->getNext() != tail) {
         cursor = cursor->getNext();
         *next = (cursor->getValue());
         return true;
@@ -230,7 +229,7 @@ bool Queue<T>::getPrevious(T **previous) {
     if (cursor->getPrevious() == nullptr) {
         return false;
     }
-    if (cursor->getPrevious() != tail) {
+    if (cursor->getPrevious() != head) {
         cursor = cursor->getPrevious();
         *previous = (cursor->getValue());
         return true;
@@ -248,7 +247,3 @@ std::ostream &operator<<(std::ostream &stream, Queue<T> &queue) {
     stream << std::endl;
     return stream;
 }
-
-
-
-
