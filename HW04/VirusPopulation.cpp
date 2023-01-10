@@ -106,7 +106,6 @@ std::ostream &operator<<(std::ostream &stream, VirusPopulation &virusPopulation)
 //        stream << *virus;
 //    }
     stream << *virusPopulation.viruses;
-    stream << std::endl;
     stream << *virusPopulation.bestVirus;
     return stream;
 }

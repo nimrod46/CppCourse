@@ -138,7 +138,7 @@ void Virus::operator*() const {
 
 bool Virus::operator<(const Virus &virus) const {
     if (getErrorFromTarget() == virus.getErrorFromTarget()) {
-        return genIndex < virus.genIndex;
+        return true;
     }
 
     return getErrorFromTarget() < virus.getErrorFromTarget();

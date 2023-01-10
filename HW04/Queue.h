@@ -49,6 +49,9 @@ public: //All allocation are handled outside the class wo we don't need big thre
     }
 };
 
+/**
+ * To use this class, users need to define "<" and "<<" operators for the T param
+ */
 template<typename T>
 class Queue {
 private:
@@ -145,10 +148,6 @@ T *Queue<T>::pop() {
 
 #endif //CPPCOURSE_QUEUE_H
 
-//
-// Created by nimrod on 20/12/2022.
-//
-
 template<typename T>
 Queue<T>::Queue(T &defaultMinValue, T &defaultMaxValue) {
     head = new Node<T>(new T(defaultMaxValue));
@@ -162,6 +161,7 @@ Queue<T>::Queue(T &defaultMinValue, T &defaultMaxValue) {
 
 template<typename T>
 Queue<T>::Queue(Queue<T> &rhs) {
+    size = 0;
     head = nullptr;
     tail = nullptr;
     cursor = nullptr;
