@@ -30,7 +30,7 @@ Virus::Virus(int defaultScore) {
 
 Virus::Virus(Virus &virus) : name(virus.name) {
     this->name = virus.name;
-    this->valuesVector = new DoubleVector(*virus.valuesVector);
+    this->valuesVector = new Vector<int>(*virus.valuesVector);
     this->targetVector = virus.targetVector;
     this->defaultScore = -1;
     this->pM = virus.pM;
@@ -46,7 +46,7 @@ Virus &Virus::operator=(const Virus &virus) {
     delete valuesVector;
 
     this->name = virus.name;
-    this->valuesVector = new DoubleVector(*virus.valuesVector);
+    this->valuesVector = new Vector<int>(*virus.valuesVector);
     this->targetVector = virus.targetVector;
     this->defaultScore = -1;
     this->pM = virus.pM;

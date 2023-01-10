@@ -78,7 +78,7 @@ void VirusPopulation::operator++(int) {
     Virus *virusToRemove = viruses->getlast();
     viruses->remove(virusToRemove);
 
-    auto *virus = new Virus(*viruses->getFirst());
+    Virus *virus = new Virus(*viruses->getFirst());
     viruses->add(virus);
 }
 

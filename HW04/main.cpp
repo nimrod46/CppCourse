@@ -26,11 +26,7 @@ int main() {
 
     std::cout << *queue;
 
-    Vector<double>* vector = new Vector<double>(2);
-    vector->add(1);
-    vector->add(2);
-    vector->add(14);
-    vector->add(25);
-    std::cout << *vector;
+    std::cout << *queue->getFirst();
+
     return 0;
 }

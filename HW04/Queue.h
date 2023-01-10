@@ -294,8 +294,8 @@ std::ostream &operator<<(std::ostream &stream, Queue<T> &queue) {
     if(queue.getSize() == 0) {
         return stream;
     }
-    stream << *queue.getFirst();
-    while (queue.getPrevious(&value)) {
+    stream << *queue.getlast();
+    while (queue.getNext(&value)) {
         stream << *value;
     }
     stream << std::endl;
