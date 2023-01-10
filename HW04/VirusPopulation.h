@@ -12,7 +12,7 @@
 
 class VirusPopulation {
 private:
-    Queue<Virus>* sortedLinkedList;
+    Queue<Virus>* viruses;
     Vector<int> *targetVector;
     int ** lastGensIndexes;
     Virus* bestVirus;
