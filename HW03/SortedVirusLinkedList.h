@@ -7,28 +7,28 @@
 
 
 #include <climits>
-#include "Virus.h"
+#include "VirusOLD.h"
 
 class SortedVirusLinkedList {
 
 private:
     class VirusNode {
-        Virus *virus;
+        VirusOLD *virus;
         VirusNode *next;
         VirusNode *previous;
 
     public: //All allocation are handled outside the class wo we don't need big three
-        explicit VirusNode(Virus *virus) : VirusNode(virus, nullptr, nullptr) {
+        explicit VirusNode(VirusOLD *virus) : VirusNode(virus, nullptr, nullptr) {
 
         }
 
-        VirusNode(Virus *virus, VirusNode *next, VirusNode *last) {
+        VirusNode(VirusOLD *virus, VirusNode *next, VirusNode *last) {
             this->virus = virus;
             this->next = next;
             this->previous = last;
         }
 
-        bool isEquals(Virus &otherVirus) {
+        bool isEquals(VirusOLD &otherVirus) {
             return virus != nullptr && *virus == otherVirus;
         }
 
@@ -48,7 +48,7 @@ private:
             this->previous = node;
         }
 
-        Virus *getVirus() {
+        VirusOLD *getVirus() {
             return virus;
         }
     };
@@ -69,17 +69,17 @@ public: //There is no need for move ctor and oper as there is no logic in moving
 
     ~SortedVirusLinkedList();
 
-    void add(Virus *virus);
+    void add(VirusOLD *virus);
 
-    void remove(Virus *virus);
+    void remove(VirusOLD *virus);
 
-    Virus *getFirst();
+    VirusOLD *getFirst();
 
-    Virus *getlast();
+    VirusOLD *getlast();
 
-    bool getNext(Virus **next);
+    bool getNext(VirusOLD **next);
 
-    bool getPrevious(Virus **previous);
+    bool getPrevious(VirusOLD **previous);
 
     int getSize() const;
 };

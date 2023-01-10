@@ -2,11 +2,11 @@
 // Created by nimrod on 20/12/2022.
 //
 
-#include "Virus.h"
+#include "VirusOLD.h"
 #include "DoubleVector.h"
 #include <iostream>
 
-Virus::Virus(std::string &name, DoubleVector &valuesVector, DoubleVector *targetVector, int *lastGenVirusIndex, int pM)
+VirusOLD::VirusOLD(std::string &name, DoubleVector &valuesVector, DoubleVector *targetVector, int *lastGenVirusIndex, int pM)
         : name(name) {
     this->valuesVector = new DoubleVector(valuesVector);
     this->targetVector = targetVector;
@@ -17,7 +17,7 @@ Virus::Virus(std::string &name, DoubleVector &valuesVector, DoubleVector *target
 }
 
 
-Virus::Virus(int defaultScore) {
+VirusOLD::VirusOLD(int defaultScore) {
     name = "";
     this->valuesVector = nullptr;
     this->targetVector = nullptr;
@@ -28,7 +28,7 @@ Virus::Virus(int defaultScore) {
     lastGenVirusIndex = nullptr;
 }
 
-Virus::Virus(Virus &virus) : name(virus.name) {
+VirusOLD::VirusOLD(VirusOLD &virus) : name(virus.name) {
     this->name = virus.name;
     this->valuesVector = new DoubleVector(*virus.valuesVector);
     this->targetVector = virus.targetVector;
@@ -38,7 +38,7 @@ Virus::Virus(Virus &virus) : name(virus.name) {
     lastGenVirusIndex = virus.lastGenVirusIndex;
 }
 
-Virus &Virus::operator=(const Virus &virus) {
+VirusOLD &VirusOLD::operator=(const VirusOLD &virus) {
     if (this == &virus) {
         return (*this);
     }
@@ -55,7 +55,7 @@ Virus &Virus::operator=(const Virus &virus) {
     return *this;
 }
 
-Virus::Virus(Virus &&virus) noexcept {
+VirusOLD::VirusOLD(VirusOLD &&virus) noexcept {
     this->name = nullptr;
     this->valuesVector = nullptr;
     this->targetVector = nullptr;
@@ -66,7 +66,7 @@ Virus::Virus(Virus &&virus) noexcept {
     *this = std::move(virus);
 }
 
-Virus &Virus::operator=(Virus &&virus) noexcept {
+VirusOLD &VirusOLD::operator=(VirusOLD &&virus) noexcept {
     this->name = virus.name;
     this->valuesVector = virus.valuesVector;
     this->targetVector = virus.targetVector;
@@ -82,7 +82,7 @@ Virus &Virus::operator=(Virus &&virus) noexcept {
     return *this;
 }
 
-double Virus::getErrorFromTarget() const {
+double VirusOLD::getErrorFromTarget() const {
     if (defaultScore != -1) {
         return defaultScore;
     }
@@ -94,11 +94,11 @@ double Virus::getErrorFromTarget() const {
 }
 
 
-bool Virus::operator==(const Virus &virus) const {
+bool VirusOLD::operator==(const VirusOLD &virus) const {
     return this->name == virus.name && genIndex == virus.genIndex;
 }
 
-std::ostream &operator<<(std::ostream &stream, Virus &virus) {
+std::ostream &operator<<(std::ostream &stream, VirusOLD &virus) {
     stream << virus.name;
     if (virus.genIndex != 0) {
         stream << "_" << virus.genIndex;
@@ -112,7 +112,7 @@ std::ostream &operator<<(std::ostream &stream, Virus &virus) {
     return stream;
 }
 
-void Virus::operator*() const {
+void VirusOLD::operator*() const {
     for (int k = 0; k < pM; ++k) {
         int i = ((double) rand() * (valuesVector->getSize())) / RAND_MAX;
         int j = ((double) rand() * (valuesVector->getSize())) / RAND_MAX;
@@ -122,7 +122,7 @@ void Virus::operator*() const {
     }
 }
 
-bool Virus::operator<(const Virus &virus) const {
+bool VirusOLD::operator<(const VirusOLD &virus) const {
     if (getErrorFromTarget() == virus.getErrorFromTarget()) {
         return genIndex < virus.genIndex;
     }
@@ -130,6 +130,6 @@ bool Virus::operator<(const Virus &virus) const {
     return getErrorFromTarget() < virus.getErrorFromTarget();
 }
 
-Virus::~Virus() {
+VirusOLD::~VirusOLD() {
     delete valuesVector;
 }

@@ -7,7 +7,7 @@
 #include <iostream>
 #include "DoubleVector.h"
 #include "SortedVirusLinkedList.h"
-#include "VirusPopulation.h"
+#include "VirusPopulationOLD.h"
 
 //int main(int argc, char *argv[]) {
 //    if (argc != 3) {
@@ -55,7 +55,7 @@
 //
 //    int vectorsCount;
 //    ss >> vectorsCount;
-//    VirusPopulation *virusPopulation = new VirusPopulation(m, dim, targetVector);
+//    VirusPopulationOLD *virusPopulation = new VirusPopulationOLD(m, dim, targetVector);
 //    for (int i = 0; i < vectorsCount; ++i) {
 //        std::string name;
 //        ss >> name;

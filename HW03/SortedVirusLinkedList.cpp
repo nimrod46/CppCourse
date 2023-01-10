@@ -5,8 +5,8 @@
 #include "SortedVirusLinkedList.h"
 
 SortedVirusLinkedList::SortedVirusLinkedList() {
-    head = new VirusNode(new Virus(INT_MIN));
-    tail = new VirusNode(new Virus(INT_MAX));
+    head = new VirusNode(new VirusOLD(INT_MIN));
+    tail = new VirusNode(new VirusOLD(INT_MAX));
     size = 0;
     p = head;
     head->setNext(tail);
@@ -31,8 +31,8 @@ SortedVirusLinkedList &SortedVirusLinkedList::operator=(const SortedVirusLinkedL
     delete tail;
     delete p;
 
-    head = new VirusNode(new Virus(INT_MIN));
-    tail = new VirusNode(new Virus(INT_MAX));
+    head = new VirusNode(new VirusOLD(INT_MIN));
+    tail = new VirusNode(new VirusOLD(INT_MAX));
     size = 0;
     p = head;
     head->setNext(tail);
@@ -58,7 +58,7 @@ SortedVirusLinkedList::~SortedVirusLinkedList() {
     }
 }
 
-void SortedVirusLinkedList::add(Virus *virus) {
+void SortedVirusLinkedList::add(VirusOLD *virus) {
     VirusNode *node = head;
     while (*node->getVirus() < *virus) {
         node = node->getNext();
@@ -69,7 +69,7 @@ void SortedVirusLinkedList::add(Virus *virus) {
     size++;
 }
 
-void SortedVirusLinkedList::remove(Virus *virus) {
+void SortedVirusLinkedList::remove(VirusOLD *virus) {
     VirusNode *node = head;
     while (node != nullptr && !node->isEquals(*virus)) {
         node = node->getNext();
@@ -84,12 +84,12 @@ void SortedVirusLinkedList::remove(Virus *virus) {
     delete node;
 }
 
-Virus *SortedVirusLinkedList::getFirst() {
+VirusOLD *SortedVirusLinkedList::getFirst() {
     p = head->getNext();
     return head->getNext()->getVirus();
 }
 
-Virus *SortedVirusLinkedList::getlast() {
+VirusOLD *SortedVirusLinkedList::getlast() {
     p = tail->getPrevious();
     return tail->getPrevious()->getVirus();
 }
@@ -98,7 +98,7 @@ int SortedVirusLinkedList::getSize() const {
     return size;
 }
 
-bool SortedVirusLinkedList::getNext(Virus **next) {
+bool SortedVirusLinkedList::getNext(VirusOLD **next) {
     if (p->getNext() == nullptr) {
         return false;
     }
@@ -110,7 +110,7 @@ bool SortedVirusLinkedList::getNext(Virus **next) {
     return false;
 }
 
-bool SortedVirusLinkedList::getPrevious(Virus **previous) {
+bool SortedVirusLinkedList::getPrevious(VirusOLD **previous) {
     if (p->getPrevious() == nullptr) {
         return false;
     }

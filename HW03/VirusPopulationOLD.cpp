@@ -3,10 +3,10 @@
 //
 
 #include <iostream>
-#include "VirusPopulation.h"
+#include "VirusPopulationOLD.h"
 
 
-VirusPopulation::VirusPopulation(int pm, int dim, DoubleVector *targetVector) {
+VirusPopulationOLD::VirusPopulationOLD(int pm, int dim, DoubleVector *targetVector) {
     this->pM = pm;
     this->dim = dim;
     this->targetVector = new DoubleVector(*targetVector);
@@ -18,7 +18,7 @@ VirusPopulation::VirusPopulation(int pm, int dim, DoubleVector *targetVector) {
     }
 }
 
-VirusPopulation::VirusPopulation(VirusPopulation &rhs) {
+VirusPopulationOLD::VirusPopulationOLD(VirusPopulationOLD &rhs) {
     this->sortedLinkedList = nullptr;
     this->bestVirus = nullptr;
     this->lastGensIndexes = nullptr;
@@ -28,7 +28,7 @@ VirusPopulation::VirusPopulation(VirusPopulation &rhs) {
     *this = rhs;
 }
 
-VirusPopulation &VirusPopulation::operator=(const VirusPopulation &rhs) {
+VirusPopulationOLD &VirusPopulationOLD::operator=(const VirusPopulationOLD &rhs) {
     if (this == &rhs) {
         return (*this);
     }
@@ -44,14 +44,14 @@ VirusPopulation &VirusPopulation::operator=(const VirusPopulation &rhs) {
     for (int i = 0; i < rhs.dim; ++i) {
         lastGensIndexes[i] = new int(*rhs.lastGensIndexes[i]);
     }
-    this->bestVirus = new Virus(*rhs.bestVirus);
+    this->bestVirus = new VirusOLD(*rhs.bestVirus);
     this->pM = rhs.pM;
     this->dim = rhs.dim;
     return *this;
 }
 
-VirusPopulation::~VirusPopulation() {
-    Virus* v = sortedLinkedList->getFirst();
+VirusPopulationOLD::~VirusPopulationOLD() {
+    VirusOLD* v = sortedLinkedList->getFirst();
     while (sortedLinkedList->getNext(&v)) {
         delete v;
     }
@@ -64,23 +64,23 @@ VirusPopulation::~VirusPopulation() {
     delete bestVirus;
 }
 
-void VirusPopulation::addVirus(std::string &name, DoubleVector &values, int index) {
-    auto *virus = new Virus(name, values, targetVector, lastGensIndexes[index], pM);
+void VirusPopulationOLD::addVirus(std::string &name, DoubleVector &values, int index) {
+    auto *virus = new VirusOLD(name, values, targetVector, lastGensIndexes[index], pM);
     sortedLinkedList->add(virus);
 
-    bestVirus = bestVirus == nullptr ? new Virus(*virus) : bestVirus;
+    bestVirus = bestVirus == nullptr ? new VirusOLD(*virus) : bestVirus;
 }
 
-void VirusPopulation::operator++(int) {
-    Virus *virusToRemove = sortedLinkedList->getlast();
+void VirusPopulationOLD::operator++(int) {
+    VirusOLD *virusToRemove = sortedLinkedList->getlast();
     sortedLinkedList->remove(virusToRemove);
 
-    auto *virus = new Virus(*sortedLinkedList->getFirst());
+    auto *virus = new VirusOLD(*sortedLinkedList->getFirst());
     sortedLinkedList->add(virus);
 }
 
-std::ostream &operator<<(std::ostream &stream, VirusPopulation &virusPopulation) {
-    Virus *virus;
+std::ostream &operator<<(std::ostream &stream, VirusPopulationOLD &virusPopulation) {
+    VirusOLD *virus;
     stream << *virusPopulation.sortedLinkedList->getFirst();
     while (virusPopulation.sortedLinkedList->getNext(&virus)) {
         stream << *virus;
@@ -90,9 +90,9 @@ std::ostream &operator<<(std::ostream &stream, VirusPopulation &virusPopulation)
     return stream;
 }
 
-void VirusPopulation::operator*() {
+void VirusPopulationOLD::operator*() {
     SortedVirusLinkedList linkedList(*sortedLinkedList);
-    Virus *virus = linkedList.getFirst();
+    VirusOLD *virus = linkedList.getFirst();
     **virus;
     sortedLinkedList->remove(virus);
     sortedLinkedList->add(virus);
@@ -107,7 +107,7 @@ void VirusPopulation::operator*() {
     }
 }
 
-bool VirusPopulation::foundMatch() {
+bool VirusPopulationOLD::foundMatch() {
     return sortedLinkedList->getFirst()->getErrorFromTarget() == 0;
 }
 
