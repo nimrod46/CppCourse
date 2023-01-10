@@ -42,7 +42,7 @@ public: //There is no need for move ctor and oper as there is no logic in moving
 template<typename T>
 Vector<T>::Vector(int size) : size(0) {
     capacity = size;
-    values = new double[size];
+    values = new T[size];
     for (int i = 0; i < size; ++i) {
         values[i] = 0;
     }
@@ -51,7 +51,7 @@ Vector<T>::Vector(int size) : size(0) {
 template<typename T>
 Vector<T>::Vector(Vector<T>& vector) : size(vector.size){
     capacity = vector.size;
-    values = new double[size];
+    values = new T[size];
     for (int i = 0; i < size; ++i) {
         values[i] = vector.get(i);
     }
