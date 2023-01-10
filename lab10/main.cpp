@@ -4,7 +4,7 @@
 //
 // Created by nimrod on 10-Jan-23.
 //
-int main() {
+int test() {
     LinkedList<int> *linkedList = new LinkedList<int>();
     int i = 5;
     linkedList->insert(&i);
@@ -16,4 +16,5 @@ int main() {
     int i2 = 11;
     *(*linkedList)[1] = i2;
     std::cout << *linkedList;
+    return 0;
 }
