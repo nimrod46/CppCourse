@@ -3,12 +3,12 @@
 //
 
 #include "Virus.h"
-#include "DoubleVector.h"
+#include "Vector.h"
 #include <iostream>
 
-Virus::Virus(std::string &name, DoubleVector &valuesVector, DoubleVector *targetVector, int *lastGenVirusIndex, int pM)
+Virus::Virus(std::string &name, Vector<int> &valuesVector, Vector<int> *targetVector, int *lastGenVirusIndex, int pM)
         : name(name) {
-    this->valuesVector = new DoubleVector(valuesVector);
+    this->valuesVector = new Vector<int>(valuesVector);
     this->targetVector = targetVector;
     this->lastGenVirusIndex = lastGenVirusIndex;
     this->pM = pM;

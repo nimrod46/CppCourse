@@ -6,10 +6,10 @@
 #include "VirusPopulation.h"
 
 
-VirusPopulation::VirusPopulation(int pm, int dim, DoubleVector *targetVector) {
+VirusPopulation::VirusPopulation(int pm, int dim, Vector<int> *targetVector) {
     this->pM = pm;
     this->dim = dim;
-    this->targetVector = new DoubleVector(*targetVector);
+    this->targetVector = new Vector<int>(*targetVector);
     this->sortedLinkedList = new SortedVirusLinkedList();
     this->bestVirus = nullptr;
     this->lastGensIndexes = new int *[dim];

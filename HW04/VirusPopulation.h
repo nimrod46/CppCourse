@@ -6,21 +6,23 @@
 #define CPPCOURSE_VIRUSPOPULATION_H
 
 
-#include "SortedVirusLinkedList.h"
+#include "Queue.h"
+#include "Vector.h"
+#include "Virus.h"
 
 class VirusPopulation {
 private:
-    SortedVirusLinkedList* sortedLinkedList;
-    DoubleVector *targetVector;
+    Queue<Virus>* sortedLinkedList;
+    Vector<int> *targetVector;
     int ** lastGensIndexes;
     Virus* bestVirus;
     int pM;
     int dim;
 
 public: //There is no need for move ctor and oper as there is no logic in moving a VirusPopulation in my code
-    VirusPopulation(int pm, int dim, DoubleVector *targetVector);
+    VirusPopulation(int pm, int dim, Vector<int> *targetVector);
 
-    void addVirus(std::string &name, DoubleVector &values, int index);
+    void addVirus(std::string &name, Vector<int> &values, int index);
 
     VirusPopulation(VirusPopulation &rhs);
 

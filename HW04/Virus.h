@@ -7,21 +7,21 @@
 
 
 #include <string>
-#include "DoubleVector.h"
+#include "Vector.h"
 
 class Virus {
 
 private:
     std::string name;
-    DoubleVector *valuesVector;
-    DoubleVector *targetVector;
+    Vector<int> *valuesVector;
+    Vector<int> *targetVector;
     int *lastGenVirusIndex;
     int genIndex;
     int pM;
     int defaultScore;
 
 public:
-    Virus(std::string &name, DoubleVector &valuesVector, DoubleVector *targetVector, int *lastGenVirusIndex, int pM);
+    Virus(std::string &name, Vector<int> &valuesVector, Vector<int> *targetVector, int *lastGenVirusIndex, int pM);
 
     explicit Virus(int defaultScore);
 
