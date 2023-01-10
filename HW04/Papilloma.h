@@ -6,8 +6,21 @@
 #define CPPCOURSE_PAPILLOMA_H
 
 
-class Papilloma {
+#include "Virus.h"
 
+class Papilloma : public Virus {
+
+public:
+    Virus *getNextGenVirus() override {
+        Papilloma *virus = new Papilloma(name, *valuesVector, targetVector, lastGenVirusIndex);
+        virus->pogressGen(*this);
+        return virus;
+    }
+
+    Papilloma(std::string &name, Vector<int> &valuesVector, Vector<int> *targetVector, int *lastGenVirusIndex)
+            : Virus("P", name, valuesVector, targetVector, lastGenVirusIndex, 1) {}
+
+    Papilloma(Virus &virus) : Virus(virus) {}
 };
 
 

@@ -6,8 +6,21 @@
 #define CPPCOURSE_MIMIVIRUS_H
 
 
-class Mimivirus {
+#include "Virus.h"
 
+class Mimivirus : public Virus {
+
+public:
+    Mimivirus(std::string &name, Vector<int> &valuesVector, Vector<int> *targetVector, int *lastGenVirusIndex)
+            : Virus("M", name, valuesVector, targetVector, lastGenVirusIndex, 4) {}
+
+    Mimivirus(Virus &virus) : Virus(virus) {}
+
+    Virus *getNextGenVirus() override {
+        Mimivirus *virus = new Mimivirus(name, *valuesVector, targetVector, lastGenVirusIndex);
+        virus->pogressGen(*this);
+        return virus;
+    }
 };
 
 

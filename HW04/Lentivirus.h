@@ -8,13 +8,18 @@
 
 #include "Virus.h"
 
-class Lentivirus : Virus {
-private:
+class Lentivirus : public Virus {
+public:
     Lentivirus(std::string &name, Vector<int> &valuesVector, Vector<int> *targetVector, int *lastGenVirusIndex)
-            : Virus(name, valuesVector, targetVector, lastGenVirusIndex, 2) {}
+            : Virus("L", name, valuesVector, targetVector, lastGenVirusIndex, 2) {}
 
     Lentivirus(Virus &virus) : Virus(virus) {}
 
+    Virus* getNextGenVirus() override {
+        Lentivirus * virus = new Lentivirus(name, *valuesVector, targetVector, lastGenVirusIndex);
+        virus->pogressGen(*this);
+        return virus;
+    }
 };
 
 

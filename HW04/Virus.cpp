@@ -5,9 +5,12 @@
 #include "Virus.h"
 #include "Vector.h"
 #include <iostream>
+#include <utility>
 
-Virus::Virus(std::string &name, Vector<int> &valuesVector, Vector<int> *targetVector, int *lastGenVirusIndex, int pM)
-        : name(name) {
+Virus::Virus(std::string type, std::string &name, Vector<int> &valuesVector, Vector<int> *targetVector,
+             int *lastGenVirusIndex, int pM)
+        : type(std::move(type)), name(name) {
+
     this->valuesVector = new Vector<int>(valuesVector);
     this->targetVector = targetVector;
     this->lastGenVirusIndex = lastGenVirusIndex;
@@ -19,6 +22,7 @@ Virus::Virus(std::string &name, Vector<int> &valuesVector, Vector<int> *targetVe
 
 Virus::Virus(int defaultScore) {
     name = "";
+    type = "";
     this->valuesVector = nullptr;
     this->targetVector = nullptr;
     lastGenVirusIndex = nullptr;
@@ -29,12 +33,17 @@ Virus::Virus(int defaultScore) {
 }
 
 Virus::Virus(Virus &virus) : name(virus.name) {
+    this->type = virus.type;
     this->name = virus.name;
-    this->valuesVector = new Vector<int>(*virus.valuesVector);
+    if (virus.valuesVector != nullptr) {
+        this->valuesVector = new Vector<int>(*virus.valuesVector);
+    } else {
+        this->valuesVector = nullptr;
+    }
     this->targetVector = virus.targetVector;
-    this->defaultScore = -1;
+    this->defaultScore = virus.defaultScore;
     this->pM = virus.pM;
-    genIndex = ++(*virus.lastGenVirusIndex);
+    genIndex = virus.genIndex;
     lastGenVirusIndex = virus.lastGenVirusIndex;
 }
 
@@ -45,6 +54,7 @@ Virus &Virus::operator=(const Virus &virus) {
 
     delete valuesVector;
 
+    this->type = virus.type;
     this->name = virus.name;
     this->valuesVector = new Vector<int>(*virus.valuesVector);
     this->targetVector = virus.targetVector;
@@ -56,6 +66,7 @@ Virus &Virus::operator=(const Virus &virus) {
 }
 
 Virus::Virus(Virus &&virus) noexcept {
+    this->type = nullptr;
     this->name = nullptr;
     this->valuesVector = nullptr;
     this->targetVector = nullptr;
@@ -67,6 +78,7 @@ Virus::Virus(Virus &&virus) noexcept {
 }
 
 Virus &Virus::operator=(Virus &&virus) noexcept {
+    this->type = virus.type;
     this->name = virus.name;
     this->valuesVector = virus.valuesVector;
     this->targetVector = virus.targetVector;
@@ -75,6 +87,7 @@ Virus &Virus::operator=(Virus &&virus) noexcept {
     this->pM = virus.pM;
     this->defaultScore = virus.genIndex;
 
+    virus.type = nullptr;
     virus.name = nullptr;
     virus.valuesVector = nullptr;
     virus.targetVector = nullptr;
@@ -99,11 +112,12 @@ bool Virus::operator==(const Virus &virus) const {
 }
 
 std::ostream &operator<<(std::ostream &stream, Virus &virus) {
+    stream << virus.type << " ";
     stream << virus.name;
     if (virus.genIndex != 0) {
         stream << "_" << virus.genIndex;
     }
-    stream << "\t";
+    stream << " ";
 
     for (int i = 0; i < virus.valuesVector->getSize(); ++i) {
         stream << virus.valuesVector->get(i) << " ";
@@ -132,4 +146,9 @@ bool Virus::operator<(const Virus &virus) const {
 
 Virus::~Virus() {
     delete valuesVector;
+}
+
+void Virus::pogressGen(Virus &virus) {
+    genIndex = ++(*virus.lastGenVirusIndex);
+    lastGenVirusIndex = virus.lastGenVirusIndex;
 }

@@ -24,7 +24,7 @@ public: //There is no need for move ctor and oper as there is no logic in moving
 
     ~Vector();
 
-    Vector& add(double value);
+    Vector& add(T value);
 
     Vector& set(int index, T& value);
 
@@ -80,10 +80,10 @@ Vector<T>::~Vector() {
 }
 
 template<typename T>
-Vector<T> &Vector<T>::add(double value) {
+Vector<T> &Vector<T>::add(T value) {
     if (size == capacity) {
         capacity = capacity == 0 ? 1 : capacity * 2;
-        double *new_values = new double[capacity];
+        T *new_values = new T[capacity];
         for (int i = 0; i < size; ++i) {
             new_values[i] = values[i];
         }

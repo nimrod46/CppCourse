@@ -11,7 +11,8 @@
 
 class Virus {
 
-private:
+protected:
+    std::string type;
     std::string name;
     Vector<int> *valuesVector;
     Vector<int> *targetVector;
@@ -20,8 +21,10 @@ private:
     int pM;
     int defaultScore;
 
+    void pogressGen(Virus &virus);
+
 public:
-    Virus(std::string &name, Vector<int> &valuesVector, Vector<int> *targetVector, int *lastGenVirusIndex, int pM);
+    Virus(std::string type, std::string &name, Vector<int> &valuesVector, Vector<int> *targetVector, int *lastGenVirusIndex, int pM);
 
     explicit Virus(int defaultScore);
 
@@ -29,7 +32,10 @@ public:
 
     Virus &operator=(const Virus &virus);
 
-    ~Virus();
+    virtual Virus* getNextGenVirus() {}
+
+
+    virtual ~Virus();
 
     Virus(Virus &&virus) noexcept;
 

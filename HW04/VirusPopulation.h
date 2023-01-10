@@ -12,17 +12,16 @@
 
 class VirusPopulation {
 private:
-    Queue<Virus>* viruses;
+    Queue<Virus> *viruses;
     Vector<int> *targetVector;
-    int ** lastGensIndexes;
-    Virus* bestVirus;
-    int pM;
+    int **lastGensIndexes;
+    Virus *bestVirus;
     int dim;
 
 public: //There is no need for move ctor and oper as there is no logic in moving a VirusPopulation in my code
-    VirusPopulation(int pm, int dim, Vector<int> *targetVector);
+    VirusPopulation(int dim, Vector<int> *targetVector);
 
-    void addVirus(std::string &name, Vector<int> &values, int index);
+    void addVirus(std::string &type, std::string &name, Vector<int> &values, int index);
 
     VirusPopulation(VirusPopulation &rhs);
 
