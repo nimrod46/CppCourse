@@ -15,4 +15,4 @@ lab07/Robot.cpp lab07/Robot.h lab07/Transformer.h lab07/Transformer.cpp lab08/Sh
         lab08/RightTriangle.cpp lab08/main.cpp lab09/Animal.cpp lab09/Donkey.h lab09/Horse.h lab09/Mule.h lab09/Mule.cpp
         lab09/main.cpp HW04/Queue.h HW04/Queue.cpp HW04/main.cpp HW04/Vector.h HW04/Vector.cpp lab10/LinkedList.h
         lab10/LinkedList.cpp lab10/main.cpp HW04/Virus.cpp HW04/Virus.h HW04/VirusPopulation.cpp HW04/VirusPopulation.h
-        HW04/VirusPopulation.h HW04/Virus.cpp)
+        HW04/VirusPopulation.h HW04/Virus.cpp HW04/Lentivirus.h HW04/Lentivirus.cpp HW04/Mimivirus.h HW04/Mimivirus.cpp HW04/Papilloma.h HW04/Papilloma.cpp)

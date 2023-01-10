@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <climits>
 #include "VirusPopulation.h"
 
 
@@ -10,7 +11,9 @@ VirusPopulation::VirusPopulation(int pm, int dim, Vector<int> *targetVector) {
     this->pM = pm;
     this->dim = dim;
     this->targetVector = new Vector<int>(*targetVector);
-    this->sortedLinkedList = new SortedVirusLinkedList();
+    Virus defMin = Virus(INT_MIN);
+    Virus defMax = Virus(INT_MAX);
+    this->sortedLinkedList = new Queue<Virus>(defMin, defMax);
     this->bestVirus = nullptr;
     this->lastGensIndexes = new int *[dim];
     for (int i = 0; i < dim; ++i) {
@@ -38,9 +41,9 @@ VirusPopulation &VirusPopulation::operator=(const VirusPopulation &rhs) {
     delete lastGensIndexes;
     delete targetVector;
 
-    this->sortedLinkedList = new SortedVirusLinkedList(*rhs.sortedLinkedList);
-    this->targetVector = new DoubleVector(*rhs.targetVector);
-    this->lastGensIndexes = new int*[rhs.dim];
+    this->sortedLinkedList = new Queue<Virus>(*rhs.sortedLinkedList);
+    this->targetVector = new Vector<int>(*rhs.targetVector);
+    this->lastGensIndexes = new int *[rhs.dim];
     for (int i = 0; i < rhs.dim; ++i) {
         lastGensIndexes[i] = new int(*rhs.lastGensIndexes[i]);
     }
@@ -51,7 +54,7 @@ VirusPopulation &VirusPopulation::operator=(const VirusPopulation &rhs) {
 }
 
 VirusPopulation::~VirusPopulation() {
-    Virus* v = sortedLinkedList->getFirst();
+    Virus *v = sortedLinkedList->getFirst();
     while (sortedLinkedList->getNext(&v)) {
         delete v;
     }
@@ -64,7 +67,7 @@ VirusPopulation::~VirusPopulation() {
     delete bestVirus;
 }
 
-void VirusPopulation::addVirus(std::string &name, DoubleVector &values, int index) {
+void VirusPopulation::addVirus(std::string &name, Vector<int> &values, int index) {
     auto *virus = new Virus(name, values, targetVector, lastGensIndexes[index], pM);
     sortedLinkedList->add(virus);
 
@@ -91,7 +94,7 @@ std::ostream &operator<<(std::ostream &stream, VirusPopulation &virusPopulation)
 }
 
 void VirusPopulation::operator*() {
-    SortedVirusLinkedList linkedList(*sortedLinkedList);
+    Queue<Virus> linkedList(*sortedLinkedList);
     Virus *virus = linkedList.getFirst();
     **virus;
     sortedLinkedList->remove(virus);
