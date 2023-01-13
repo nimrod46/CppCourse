@@ -20,7 +20,7 @@ public: //There is no need for move ctor and oper as there is no logic in moving
 
     Vector &operator=(const Vector &rhs);
 
-    Vector(Vector& vector);
+    Vector(const Vector& vector);
 
     ~Vector();
 
@@ -35,8 +35,6 @@ public: //There is no need for move ctor and oper as there is no logic in moving
     int getSize() const;
 
     void print();
-
-    std::string toString();
 };
 
 template<typename T>
@@ -49,7 +47,7 @@ Vector<T>::Vector(int size) : size(0) {
 }
 
 template<typename T>
-Vector<T>::Vector(Vector<T>& vector) : size(vector.size){
+Vector<T>::Vector(const Vector<T>& vector) : size(vector.size){
     capacity = vector.size;
     values = new T[size];
     for (int i = 0; i < size; ++i) {
@@ -67,7 +65,7 @@ Vector<T> &Vector<T>::operator=(const Vector<T> &rhs) {
 
     this->size = rhs.size;
     capacity = rhs.capacity;
-    values = new double[capacity];
+    values = new T[capacity];
     for (int i = 0; i < size; ++i) {
         values[i] = rhs.get(i);
     }

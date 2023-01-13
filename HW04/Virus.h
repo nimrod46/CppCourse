@@ -32,8 +32,7 @@ public:
 
     Virus &operator=(const Virus &virus);
 
-    virtual Virus* getNextGenVirus() {}
-
+    virtual Virus* getNextGenVirus() {} //Method to duplicate virus (used for best virus)
 
     virtual ~Virus();
 

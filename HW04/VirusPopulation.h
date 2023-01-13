@@ -19,7 +19,7 @@ private:
     int dim;
 
 public: //There is no need for move ctor and oper as there is no logic in moving a VirusPopulation in my code
-    VirusPopulation(int dim, Vector<int> *targetVector);
+    VirusPopulation(int dim, const Vector<int> *targetVector);
 
     void addVirus(std::string &type, std::string &name, Vector<int> &values, int index);
 

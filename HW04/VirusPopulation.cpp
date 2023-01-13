@@ -10,7 +10,7 @@
 #include "Mimivirus.h"
 
 
-VirusPopulation::VirusPopulation(int dim, Vector<int> *targetVector) {
+VirusPopulation::VirusPopulation(int dim, const Vector<int> *targetVector) {
     this->dim = dim;
     this->targetVector = new Vector<int>(*targetVector);
     Virus defMin(INT_MIN);
