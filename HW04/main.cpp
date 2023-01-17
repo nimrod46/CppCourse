@@ -12,56 +12,56 @@ VirusPopulation *
 readFirstPopulation(const std::string &firstGenerationFileName, std::ifstream &file, std::stringstream &ss, int dim,
                     const Vector<int> *targetVector);
 
-int main(int argc, char *argv[]) {
-    if (argc != 3) {
-        std::cerr << "Usage: run the program with <init file name> <location file name>" << std::endl;
-        exit(-1);
-    }
-    std::string configFileName = argv[1];
-    std::string firstGenerationFileName = argv[2];
-
-
-    std::ifstream file;
-    file.open(configFileName);
-
-    if (file.fail()) {
-        std::cerr << "Invalid input." << std::endl;
-        exit(-1);
-    }
-
-    std::stringstream ss;
-    ss << file.rdbuf();
-
-    file.close();
-
-    int dim;
-    ss >> dim;
-
-    Vector<int> *targetVector = new Vector<int>(0);
-    for (int i = 0; i < dim; ++i) {
-        int n;
-        ss >> n;
-        targetVector->add(n);
-    }
-
-    VirusPopulation *virusPopulation = readFirstPopulation(firstGenerationFileName, file, ss, dim, targetVector);
-
-    int rotation;
-    std::cin >> rotation;
-    for (int i = 0; i < rotation; ++i) {
-
-        (*virusPopulation)++;
-        **virusPopulation;
-        if (virusPopulation->foundMatch()) {
-            break;
-        }
-    }
-    std::cout << *virusPopulation;
-
-    delete virusPopulation;
-    delete targetVector;
-    return 0;
-}
+//int main(int argc, char *argv[]) {
+//    if (argc != 3) {
+//        std::cerr << "Usage: run the program with <init file name> <location file name>" << std::endl;
+//        exit(-1);
+//    }
+//    std::string configFileName = argv[1];
+//    std::string firstGenerationFileName = argv[2];
+//
+//
+//    std::ifstream file;
+//    file.open(configFileName);
+//
+//    if (file.fail()) {
+//        std::cerr << "Invalid input." << std::endl;
+//        exit(-1);
+//    }
+//
+//    std::stringstream ss;
+//    ss << file.rdbuf();
+//
+//    file.close();
+//
+//    int dim;
+//    ss >> dim;
+//
+//    Vector<int> *targetVector = new Vector<int>(0);
+//    for (int i = 0; i < dim; ++i) {
+//        int n;
+//        ss >> n;
+//        targetVector->add(n);
+//    }
+//
+//    VirusPopulation *virusPopulation = readFirstPopulation(firstGenerationFileName, file, ss, dim, targetVector);
+//
+//    int rotation;
+//    std::cin >> rotation;
+//    for (int i = 0; i < rotation; ++i) {
+//
+//        (*virusPopulation)++;
+//        **virusPopulation;
+//        if (virusPopulation->foundMatch()) {
+//            break;
+//        }
+//    }
+//    std::cout << *virusPopulation;
+//
+//    delete virusPopulation;
+//    delete targetVector;
+//    return 0;
+//}
 
 VirusPopulation *
 readFirstPopulation(const std::string &firstGenerationFileName, std::ifstream &file, std::stringstream &ss, int dim,
