@@ -1,17 +1,45 @@
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 #include "DirectedGraph.h"
+#include "Exception.h"
 
 void handleUserInput(DirectedGraph<std::string> &graph);
 
-void handleFilesInput(std::vector<std::string> &filesNames, const std::string &outputFileName);
+void handleFilesInput(std::vector<std::string> &filesNames, const std::string &outputFileName,
+                      DirectedGraph<std::string> &dg);
 
-//
-// Created by nimrod on 26/01/2023.
-//
+void
+handleProgramArguments(int argc, char *const *argv, std::vector<std::string> &filesNames, std::string &outputFileName);
+
 int main(int argc, char *argv[]) {
-    std::vector<std::string> filesNames;
-    std::string outputFileName = "output.dat";
+    try {
+        std::vector<std::string> filesNames;
+        std::string outputFileName;
+
+        handleProgramArguments(argc, argv, filesNames, outputFileName);
+
+        DirectedGraph<std::string> graph;
+
+        handleFilesInput(filesNames, outputFileName, graph);
+
+        handleUserInput(graph);
+    } catch (Exception &e) {
+        e.print();
+    }
+
+    return 0;
+}
+
+void
+handleProgramArguments(int argc, char *const *argv, std::vector<std::string> &filesNames, std::string &outputFileName) {
+    outputFileName = "output.dat";
+
+    if (argc == 1) {
+        std::string errMsg = "ERROR: make user to input at least one file";
+        throw Exception(errMsg);
+    }
+
     for (int i = 1; i < argc; ++i) {
         std::string arg = argv[i];
         if (arg == "-o") {
@@ -21,13 +49,6 @@ int main(int argc, char *argv[]) {
         }
         filesNames.emplace_back(arg);
     }
-    DirectedGraph<std::string> dg;
-
-    handleFilesInput(filesNames, outputFileName);
-
-    handleUserInput(dg);
-
-    return 0;
 }
 
 void handleFilesInput(std::vector<std::string> &filesNames, const std::string &outputFileName,
@@ -36,18 +57,44 @@ void handleFilesInput(std::vector<std::string> &filesNames, const std::string &o
     std::ifstream infile;
     for (const std::string &fileName: filesNames) {
         infile.open(fileName);
+
+        if (infile.fail()) {
+            throw Exception("ERROR: does not exist or cannot be opened");
+        }
+
         std::string data;
         while (std::getline(infile, data)) {
-
+            if(std::all_of(data.begin(),data.end(),isspace)) { //Avoid empty line
+                continue;
+            }
             std::stringstream line(data);
             std::string from;
             line >> from;
 
+            if (line.fail()) {
+                throw Exception("ERROR: node definition in " + fileName + " is invalid");
+            }
+
             std::string to;
             line >> to;
 
+            if (line.fail()) {
+                throw Exception("ERROR: node definition in " + fileName + " is invalid");
+            }
+
             int weight;
             line >> weight;
+
+            if (line.fail() || weight <= 0) {
+                throw Exception("ERROR: node definition in " + fileName + " is invalid");
+            }
+
+            line.get();
+            line.get();
+            if (!line.fail()) { //Too many argument in edge definition
+                throw Exception("ERROR: node definition in " + fileName + " is invalid");
+            }
+
 
             dg.addVertex(from);
             dg.addVertex(to);
@@ -57,9 +104,14 @@ void handleFilesInput(std::vector<std::string> &filesNames, const std::string &o
     }
 
 
-    std::ofstream file;
-    file.open(outputFileName);
-    file << dg;
+    std::ofstream outFile;
+
+    if (outFile.fail()) {
+        throw Exception("ERROR: does not exist or cannot be opened");
+    }
+
+    outFile.open(outputFileName);
+    outFile << dg;
 }
 
 void handleUserInput(DirectedGraph<std::string> &graph) {

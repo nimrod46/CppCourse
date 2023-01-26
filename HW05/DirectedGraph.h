@@ -99,7 +99,8 @@ template<typename V>
 void DirectedGraph<V>::setEdge(V from, V to, int weight) {
     int fromIndex = getVertexIndex(from);
     int toIndex = getVertexIndex(to);
-    matrix[fromIndex][toIndex] = matrix[fromIndex][toIndex] < weight ? matrix[fromIndex][toIndex] : weight;
+    int lastValue = matrix[fromIndex][toIndex];
+    matrix[fromIndex][toIndex] = lastValue == 0 || weight < lastValue ? weight : lastValue;
 }
 
 template<typename V>
