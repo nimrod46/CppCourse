@@ -2,7 +2,9 @@
 #include <sstream>
 #include "DirectedGraph.h"
 
-void userInput(DirectedGraph<std::string> &graph);
+void hndleUserInput(DirectedGraph<std::string> &graph);
+
+void handleFilesInput(std::vector<std::string> &filesNames, const std::string &outputFileName);
 
 //
 // Created by nimrod on 26/01/2023.
@@ -19,16 +21,23 @@ int main(int argc, char *argv[]) {
         }
         filesNames.emplace_back(arg);
     }
-
     DirectedGraph<std::string> dg;
+
+    handleFilesInput(filesNames, outputFileName);
+
+    hndleUserInput(dg);
+
+    return 0;
+}
+
+void handleFilesInput(std::vector<std::string> &filesNames, const std::string &outputFileName,
+                      DirectedGraph<std::string> &dg) {
 
     std::ifstream infile;
     for (const std::string &fileName: filesNames) {
         infile.open(fileName);
         std::string data;
         while (std::getline(infile, data)) {
-//            std::cout << data << "end of line" << std::endl;
-//            std::cout.flush();
 
             std::stringstream line(data);
             std::string from;
@@ -51,13 +60,9 @@ int main(int argc, char *argv[]) {
     std::ofstream file;
     file.open(outputFileName);
     file << dg;
-
-    userInput(dg);
-
-    return 0;
 }
 
-void userInput(DirectedGraph<std::string> &graph) {
+void hndleUserInput(DirectedGraph<std::string> &graph) {
 
     while (true) {
         std::string sourceNode;
