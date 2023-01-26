@@ -45,7 +45,7 @@ public:
 
     void getAllConnectedVertices(V v, std::vector<V> *connectedVertices);
 
-    int getItemIndex(V v, typename std::vector<V v>::iterator begin, typename std::vector<V>::iterator end);
+    int getItemIndex(V v, typename std::vector<V>::iterator begin, typename std::vector<V>::iterator end);
 };
 
 template<typename V>
@@ -56,7 +56,12 @@ DirectedGraph<V>::DirectedGraph(): matrix(new std::vector<std::vector<int> *>())
 template<typename V>
 void DirectedGraph<V>::addVertex(V v) {
     vertices->push_back(v);
-    matrix->push_back(new std::vector<int>());
+    std::vector<int> *row = new std::vector<int>();
+    for (int i = 0; i < matrix->size(); ++i) {
+        row->push_back(0);
+    }
+    matrix->push_back(row);
+
     for (std::vector<int> *i: *matrix) {
         i->push_back(0);
     }
@@ -150,7 +155,7 @@ void DirectedGraph<V>::print() {
 
 template<class U>
 std::ostream &operator<<(std::ostream &stream, DirectedGraph<U> &queue) {
-    return 0;
+    return stream;
 }
 
 template<typename V>

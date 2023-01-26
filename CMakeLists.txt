@@ -18,4 +18,4 @@ lab07/Robot.cpp lab07/Robot.h lab07/Transformer.h lab07/Transformer.cpp lab08/Sh
         lab10/LinkedList.cpp lab10/main.cpp HW04/Virus.cpp HW04/Virus.h HW04/VirusPopulation.cpp HW04/VirusPopulation.h
         HW04/VirusPopulation.h HW04/Virus.cpp HW04/Lentivirus.h HW04/Lentivirus.cpp
         HW04/Mimivirus.h HW04/Mimivirus.cpp HW04/Papilloma.h HW04/Papilloma.cpp
-        practice/main.c HW05/DirectedGraph.cpp HW05/DirectedGraph.h)
+        practice/main.c HW05/DirectedGraph.cpp HW05/DirectedGraph.h HW05/main.cpp)
