@@ -2,7 +2,7 @@
 #include <sstream>
 #include "DirectedGraph.h"
 
-void hndleUserInput(DirectedGraph<std::string> &graph);
+void handleUserInput(DirectedGraph<std::string> &graph);
 
 void handleFilesInput(std::vector<std::string> &filesNames, const std::string &outputFileName);
 
@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 
     handleFilesInput(filesNames, outputFileName);
 
-    hndleUserInput(dg);
+    handleUserInput(dg);
 
     return 0;
 }
@@ -62,7 +62,7 @@ void handleFilesInput(std::vector<std::string> &filesNames, const std::string &o
     file << dg;
 }
 
-void hndleUserInput(DirectedGraph<std::string> &graph) {
+void handleUserInput(DirectedGraph<std::string> &graph) {
 
     while (true) {
         std::string sourceNode;
