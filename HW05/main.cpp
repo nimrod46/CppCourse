@@ -98,7 +98,11 @@ void handleFilesInput(std::vector<std::string> &filesNames, const std::string &o
 
             dg.addVertex(from);
             dg.addVertex(to);
-            dg.addEdge(from, to, weight);
+            int lastEdgeValue = dg.getEdge(from, to);
+            if(lastEdgeValue == 0 || weight < lastEdgeValue) {
+                //Update edge only if it does not exist or if new value is less than the previous one
+                dg.addEdge(from, to, weight);
+            }
         }
         infile.close();
     }
